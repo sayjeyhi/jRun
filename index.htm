@@ -7,9 +7,9 @@
     <title>JafarRezaei - Test</title>
     <style type="text/css">
         @charset 'utf-8';
-        @font-face{font-family:'SDF';src:url('/public/Fonts/IRANSansLight.woff') format('woff'),url('/public/Fonts/IRANSansLight.ttf') format('truetype');font-weight:normal}
-        @font-face{font-family:'SDF';src:url('/public/Fonts/IRANSansMedium.woff') format('woff'),url('/public/Fonts/IRANSansMedium.ttf') format('truetype');font-weight:bold}
-        @font-face{font-family:'BYekan';src:url('/public/Fonts/BYekan.eot') format("eot"),url('/public/Fonts/BYekan.woff') format("woff"),url('/public/Fonts/BYekan.ttf') format("truetype")}
+        @font-face{font-family:'SDF';src:url('/mySite/public/Fonts/IRANSansLight.woff') format('woff'),url('/mySite/public/Fonts/IRANSansLight.ttf') format('truetype');font-weight:normal}
+        @font-face{font-family:'SDF';src:url('/mySite/public/Fonts/IRANSansMedium.woff') format('woff'),url('/mySite/public/Fonts/IRANSansMedium.ttf') format('truetype');font-weight:bold}
+        @font-face{font-family:'BYekan';src:url('/mySite/public/Fonts/BYekan.eot') format("eot"),url('/mySite/public/Fonts/BYekan.woff') format("woff"),url('/mySite/public/Fonts/BYekan.ttf') format("truetype")}
 
         body {
             margin: 0 0 40px;
@@ -288,8 +288,8 @@
 -->
 
 <!-- Le scripts -->
-<script src="vivus.js"></script>
-<script src="randomMaterial.js"></script>
+<script src="/mySite/public/Javascript/PlugIns/vivus/vivus.min.js"></script>
+<script src="/mySite/public/Javascript/randomMaterial.js"></script>
 <script>
     function _(selector) {
         return document.querySelector(selector);
@@ -331,6 +331,11 @@
         timing = new Vivus('timing-example', timingProps);
     }
 
+    var afterLoad = function () {
+        console.log("ss");
+        _('#loadingText').innerHTML = "نمایش محتوا اسکرول";
+    };
+
 
     var hi = new Vivus(
         'jafarRezaeiAnimate',
@@ -344,13 +349,16 @@
         function (obj) {
             setTimeout(function () {
                 obj.el.classList.add('finished');
-            }, 500)
+            }, 500);
+            // load bundle of javascript pack here then do the job
+            afterLoad();
         }
     );
     document.getElementById("jafarRezaeiAnimate").onclick = function () {
         this.classList.remove("finish");
         hi.reset().play();
     }
+
 
 </script>
 </body>
