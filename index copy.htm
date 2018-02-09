@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>vivus.js - svg animation</title>
+		<meta name="description" content="SVG Drawing Animation" />
+
+		<style type="text/css">
+
+			
+			body {
+				margin: 0 0 40px;
+				font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+				font-weight: 200;
+				color: #666666;
+				background-color: #FFFFFF;
+				word-break: break-word;
+			}
+			a, a:visited, a:hover, a:link {
+				color: inherit;
+				outline: 0;
+			}
+			small {
+				font-weight: 100;
+			}
+			p {
+				font-size: 1rem;
+				line-height: 1.4rem;
+			}
+			button, .button {
+				margin: 0; padding: 3px 6px;
+				border-radius: 6px;
+				border: 1px solid currentColor;
+				color: inherit;
+				background-color: rgba(0,0,0,0);
+				font-size: 0.6rem;
+				font-weight: 300;
+				text-decoration: none;
+				cursor: pointer;
+				outline: 0;
+			}
+			button.active, .button.active {
+				background-color: currentColor;
+			}
+			button.active span, .button.active span {
+				color: #FFFFFF;
+			}
+			i {
+				background-color: rgba(0, 0, 0, 0.05);
+				border-radius: 4px;
+			}
+            
+            
+            
+			svg *:not(.doNotUnfill) {
+				fill: none;
+				stroke: currentColor;
+			}
+
+			/* Common components */
+			.bloc {
+				color: #f9f9f9;
+				padding: 1px 0 30px;
+				clear: both;
+			}
+			.content {
+				margin: auto;
+				max-width: 960px;
+				padding: 0 20px;
+			}
+			.col3 {
+				width: 33.33%;
+				float: left;
+				text-align: center;
+				border-bottom-color: currentColor;
+				border-bottom-style: solid;
+			}
+			.col-container {
+				padding: 0 12px;
+			}
+			.col3 p {
+				font-size: 0.75rem;
+				line-height: 1.05rem;
+			}
+
+			/* Text */
+			.bigger {
+				font-size: 1rem;
+				font-weight: 100;
+				line-height: 1.4rem;
+			}
+			.center {
+				text-align: center;
+			}
+			.clearer {
+				clear: both;
+			}
+			.striked {
+				text-decoration: line-through;
+			}
+			.italic {
+				font-style: italic;
+			}
+
+			/* Blocs */
+			.bloc-head     { color: #5aa8c5; padding: 30px; }
+			.bloc-demo     { color: #FF495F; }
+			.bloc-timing   { color: #F7A800; }
+			.bloc-scenario { color: #4fe084; }
+			.bloc-doc      { color: #69B0CA; }
+
+			/* Custom */
+			#hi-there {
+				width: 100%;
+				stroke-width:3;
+                color: #ccc;
+			}
+			.intro-links {
+				text-align: right;
+			}
+			.example-description {
+				margin-left: 440px;
+			}
+			.timing-description {
+				min-height: 200px;
+				margin-right: 240px;
+			}
+			.obturateur {
+				stroke-width: 3;
+				stroke-miterlimit: 10;
+			}
+			#polaroid {
+				float: left;
+				width: 400px; height: 320px;
+				stroke: #f9f9f9;
+				stroke-width: 3;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				stroke-miterlimit: 10;
+			}
+			#timing-example {
+				float: right;
+				width: 175px; height: 175px;
+			}
+			.goodbye-head {
+				font-size: 1.5rem;
+				text-align: center;
+				margin-bottom: 0;
+			}
+			.goodbye-sub {
+				font-size: 0.875rem;
+				text-align: center;
+				margin: 0 0 20px;
+			}
+
+			/* Media queries */
+			@media (max-width: 960px) {
+				.button-group { display: block; line-height: 1.8em; }
+			}
+
+			@media (min-width: 768px) {
+				.col3 { border-bottom: none; }
+			}
+
+			@media (max-width: 767px) {
+				#polaroid { width: 100%; max-height: 300px; }
+				.example-description { margin-left: 0; }
+				.timing-description { margin-right: 0; }
+				#timing-example { float: none; width: 100%; }
+
+				.col3 { width: 100%; float: none; margin-bottom: 25px; padding-bottom: 25px; border-bottom-width: 1px; min-height: 200px; }
+				.col3:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom-width: 0px; }
+			}
+
+			@media (min-width: 481px) and (max-width: 767px) {
+				#polaroid { width: 100%; max-height: 300px; }
+				.example-description { margin-left: 0; }
+				.timing-description { margin-right: 0; }
+
+				.col3:nth-child(2n) svg {
+					width: 200px;
+					float: right;
+				}
+				.col3:nth-child(2n) .col-container {
+					text-align: right;
+					margin-right: 200px;
+				}
+				.col3:nth-child(2n+1) svg {
+					width: 200px;
+					float: left;
+				}
+				.col3:nth-child(2n+1) .col-container {
+					text-align: left;
+					margin-left: 200px;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.col-container { padding: 0px; }
+				#polaroid { width: 100%; max-height: 260px; }
+			}
+
+		</style>
+	</head>
+	<body>
+<!--        <path d="M96.396,51.878c-8.553-9.874-26.955-9.181-29.977-8.995c-1.051-0.973-1.498-1.968-1.352-3.036  c0.469-3.377,6.537-6.91,9.221-8.18C77.033,32.626,95.992,39.706,96.396,51.878z"/><path d="M70.523,47.639c-2.924-0.353-3.723-1.198-3.938-1.672c-0.205-0.452-0.07-0.948,0.068-1.272  c2.826-0.144,17.586-0.536,26.098,6.219C88.801,49.466,82.002,47.962,70.523,47.639z"/><g><path d="M42.282,27.735c-0.159,1.627,0.163,2.894,0.979,3.858c1.278,1.512,3.887,2.311,7.544,2.311c2.353,0,4.664-0.33,6.185-0.604   c-6.16-5.007-11.837-5.579-14.099-5.579C42.659,27.72,42.455,27.726,42.282,27.735z"/><path d="M64.92,46.696c-0.455-1.024-0.221-2.028,0.047-2.678c-1.35-1.337-1.922-2.822-1.699-4.422   c0.617-4.45,7.566-8.247,9.867-9.391c-4.967-16.34-31.814-15.471-31.901-15.468c-29.937,0-36.413,38.852-37.63,49.625   c6.555-6.708,14.529-8.254,14.897-8.322l1.59-0.294l-0.575,1.512c-5.003,13.175,1.949,24.427,4.582,28.014   c5.898-14.034,14.91-16.924,15.304-17.043l1.026-0.313l0.14,1.064c0.989,7.541,7.837,12.198,10.594,13.786   c1.986-16.429,13.529-29.617,17.406-33.636C66.662,48.66,65.432,47.848,64.92,46.696z M59.199,34.698   c-0.168,0.042-4.146,1.024-8.394,1.024c-4.271,0-7.275-0.994-8.934-2.955c-1.276-1.509-1.71-3.537-1.291-6.026l0.109-0.645   l0.645-0.103c0.06-0.009,0.609-0.092,1.557-0.092c2.641,0,9.556,0.706,16.7,7.243l1.248,1.143L59.199,34.698z"/></g>
+            </svg>
+            -->
+		<!-- Head: HI THERE -->
+		<div class="bloc bloc-head" style="text-align:center">
+     
+			<svg enable-background="new 0 0 95 95" id="hi-there"  width="1428.1" height="686.51" version="1.1" viewBox="0 0 1428.1179 686.50555" xmlns="http://www.w3.org/2000/svg" style="width:400px;height:400px">
+ <path d="m85.047 685.97c-53.882-4.4615-85.131-41.545-85.047-100.93 0.079-55.921 24.391-130.09 69.651-212.5 10.841-19.739 13.146-23.44 15.053-24.171 4.5046-1.7286 2.7391 3.7924-9.808 30.671-20.205 43.284-26.971 59.478-34.052 81.5-12.273 38.17-15.995 67.055-11.338 88 6.9922 31.448 31.554 51.155 69.112 55.454 37.955 4.3442 76.503-5.7499 111.85-29.289 28.616-19.057 51.162-48.353 52.429-68.126 0.41802-6.5224 0.26306-7.2266-2.113-9.6015-3.9241-3.9223-12.695-7.7888-27.608-12.17-30.322-8.9093-39.506-16.864-42.144-36.501-1.8417-13.712 0.88315-28.329 8.811-47.265 18.904-41.746 39.901-64.524 43.275-104.46 0-8.9791-9.3999-32.637-20.47-51.519-3.7014-6.3132-6.9434-12.838-7.2046-14.5-0.33211-2.1129 2.4052-11.465 9.1035-31.102 11.463-33.606 16.696-46.82 18.694-47.205 2.3321-0.44912 9.4066 5.2243 14.371 11.525 2.4962 3.168 6.5384 9.81 8.9828 14.76 8.8689 17.96 12.813 34.831 12.857 55 0.0516 23.517-5.539 45.196-22.823 88.5-6.2564 15.675-12.761 38.7-19.456 49.5-3.0495 9.7081-15.789 23.844-7.9449 28.382 5.4656 3.1254 7.0183 3.787 26.098 11.121 22.535 8.6622 27.766 19.037 25.686 50.942-1.5612 23.94-6.7182 48.548-15.776 75.275-9.1493 26.998-17.293 43.674-32.37 66.28-19.778 29.656-37.49 46.7-66.748 64.231-16.368 9.8075-37.242 16.624-54.5 17.796-4.4 0.2989-10.025 0.6894-12.5 0.8678-2.475 0.1783-8.807-0.032-14.071-0.4682zm741.82-23.505c-3.8023-3.8256 7.2657-14.795 36.25-35.926 31.487-22.956 55.598-44.896 71.956-65.476 8.8465-11.13 23.493-33.012 38.952-58.194 35.046-57.091 56.128-81.247 86.697-99.343l10.104-5.9813 0.1225-4.5c0.4338-15.943 11.283-38.851 28.59-60.37 23.217-28.866 40.167-35.467 55.808-21.734 14.036 12.323 17.465 38.081 8.3092 62.407-1.396 3.7087-2.5381 7.1214-2.5381 7.5837 16.707 0.0716 36.5-12.54 44.303-18.624 16.735-12.068 19.459-14.465 20.316-17.883 0.942-3.7533-1.0955-9.4074-5.0582-14.037-4.6885-5.4775-8.0654-6.7419-15.809-5.9193-12.878 1.3679-12.271 1.4804-12.097-2.2437 0.3082-6.5977 12.125-20.76 23.512-28.18 8.167-5.3213 23.341-10.131 33.927-10.754 19.651-1.1563 40.913 6.0362 45.431 15.369 4.0764 8.4199 1.6292 18.726-8.0333 33.831-2.8448 4.4471-3.166 5.4653-1.8795 5.9589 24.422 6.8661 51.418-25.916 60.633-36.822 8.8281-10.495 19.222-22.332 23.099-26.303 3.8762-3.9714 6.847-7.3782 6.6017-7.5706-0.2452-0.19242-2.9209-1.3097-5.9459-2.4828-3.025-1.1731-9.775-3.882-15-6.0197-25.488-10.428-31.734-9.6313-47.147 6.0157-4.7557 4.828-9.1129 8.7782-9.6826 8.7782-2.1331 0-2.2338-4.069-0.2136-8.636 3.9822-9.0025 14.576-26.724 18.764-31.39 10.179-11.341 27.362-13.387 46.753-5.5687 22.055 8.8933 40.636 10.119 54.214 3.5763 7.8736-3.794 10.313-3.8807 10.313-0.36635 0 3.0639-4.4464 19.816-6.676 25.152-2.9086 6.9612-7.2101 11.919-16.01 18.451-12.487 9.2693-25.273 21.621-41.06 39.665-7.5149 8.5892-17.808 20.342-22.874 26.117-5.066 5.775-12.189 13.13-15.829 16.344-13.189 8.7946-33.266 18.245-48.043 21.806-9.1563 1.9717-9.7919 1.9879-14.788 0.37647-2.871-0.9261-8.9963-3.6804-13.612-6.1207l-8.3919-4.4369-5.5429 3.1282c-13.053 13.106-35.768 21.747-46.428 31.025-2.6516 3.0969-14.58 10.522-23.745 14.781-10.055 4.6723-16.93 6.0108-36.451 7.0974-9.9268 0.55253-19.399 1.2844-21.049 1.6264-4.5029 0.93325-13.109 5.5159-23.867 12.709-12.268 7.2321-17.462 8.2024-25.93 13.032-27.198 15.528-35.504 24.321-66.752 70.665-27.776 41.194-35.938 52.051-49.873 66.335-26.828 27.501-54.74 47.415-91.295 65.137-15.134 7.3367-21.45 9.5077-23.032 7.916zm308.16-280.67c2.974-1.1062 6.9809-3.4533 8.9041-5.2158 3.0087-2.7573 3.5528-3.9602 3.8983-8.6193 0.502-6.7679-1.6831-10.643-8.133-14.423-9.5948-5.6229-21.792-7.0183-29.354-3.3581-10.926 5.2894-19.715 18.47-15.924 23.883 2.5528 3.6446 5.2066 4.9318 16.414 7.9613 11.822 3.1954 15.071 3.1648 24.194-0.22836zm223.35 192.94c-7.8963-6.9671-25.017-20.528-31.003-24.557-3.4375-2.3136-6.25-4.5711-6.25-5.0166 0-1.6175 42.523-67.011 44.445-68.35 2.2835-1.5908 5.3793-0.5571 13.055 4.3591 22.601 14.476 32.445 33.356 26.517 50.859-2.5831 7.6274-10.879 20.728-18.851 29.769-6.536 7.4125-18.401 16.247-21.82 16.247-1.2872 0-4.0291-1.49-6.0932-3.3112zm-981.25-15.193c-16.167-3.6569-30.198-14.976-37.872-30.554-5.7357-11.643-9.0913-25.53-9.8331-40.692-3.0325-26.946 0.0224-38.379 2.2898-57.75 9.2186-78.583 19.682-148.09 26.02-172.84 1.7534-6.8472 8.2479-24.578 16.084-43.913 5.3245-13.137 7.4782-16.082 8.9517-12.242 0.31818 0.82917-1.0326 12.867-3.0017 26.75-11.58 81.649-21.698 183.61-18.439 185.82 0.46687 0.31595 1.2925 4.4789 1.8348 9.251 2.9594 26.045 17.041 44.25 39.701 51.329 7.1533 2.2346 9.5997 2.5228 18.59 2.19 9.4088-0.34829 10.983-0.69851 17.263-3.8398 8.0802-4.0421 22.258-17.603 34.672-33.163 8.8197-11.055 12.919-14.029 20.149-14.619 4.4412-0.36227 6.0441 0.0921 12.592 3.5691 4.1268 2.1913 9.9507 4.711 12.942 5.5993l5.4387 1.6151 2.9255-2.7531c1.609-1.5142 8.1529-8.6031 14.542-15.753 35.379-39.593 50.673-55.408 61.208-63.292 14.058-10.521 30.11-14.024 41.136-8.9762 6.2815 2.8758 11.883 8.3958 14.985 14.768 1.6504 3.3901 2.1959 6.3499 2.2118 12 0.038 13.611-6.3389 29.175-21.102 51.5-27.767 41.992-56.795 64.99-90.364 71.594-9.0133 1.7733-36.212 0.59399-46.744-2.0267-8.9165-2.2186-20.729-7.2849-28.274-12.126-3.7921-2.4334-5.1156-2.8127-7.135-2.0449-4.2428 1.6131-9.0153 8.345-18.278 25.782-16.386 30.847-29.407 47.187-42.309 53.094-6.9402 3.1773-20.371 3.9443-30.187 1.724zm204.83-124.44c14.771-5.2444 56.854-21.513 53.533-37.79-2.6386-11.824-21.297-14.09-33.276-13.004-10.143 0.91976-18.522 6.1554-33.167 20.725-6.92 6.8843-16.348 16.777-20.952 21.983-8.109 9.1714-8.2934 9.4898-5.9181 10.22 4.7352 1.4562 30.947 0.0499 39.779-2.1342zm93.531 123.44c-1.3386-3.4881 5.8168-10.714 29.641-29.932 48.579-39.187 61.233-52.118 71.984-73.56 5.9108-11.789 11.237-27.043 24.617-70.5 11.75-38.162 14.546-45 18.399-45 3.7029 0 3.6447 3.2442-0.487 27.16-10.25 59.328-21.131 103.83-31.927 130.57-9.7891 24.247-17.312 33.211-35.086 41.812-25.899 12.532-75.042 24.923-77.141 19.452zm-182.47-286.3c-7.9146-6.4917-17.203-13.708-20.64-16.037s-6.25-4.922-6.25-5.7627c0-2.1599 0.7212-3.3722 14.414-24.229 6.7405-10.267 16.157-24.63 20.925-31.918 6.6441-10.155 9.168-13.25 10.804-13.25 3.2699 0 18.59 10.676 25.767 17.957 4.1123 4.1713 7.5174 8.839 9.5 13.023 2.6998 5.697 3.0902 7.5947 3.0902 15.021 0 7.4683-0.384 9.3105-3.1636 15.178-7.9946 16.875-24.738 35.749-35.819 40.38-1.899 0.79346-3.6292 1.4427-3.8448 1.4427-0.2156 0-6.8676-5.3114-14.782-11.803zm601.44-60.496c-7.6042-6.2146-16.863-13.437-20.576-16.051-3.7125-2.6132-6.75-5.3955-6.75-6.183s3.4503-6.7272 7.6673-13.199c26.236-40.266 36.453-55.377 37.791-55.89 1.8834-0.72274 8.8233 3.199 18.201 10.285 11.258 8.5077 18.215 17.949 20.859 28.312 1.3893 5.4438 1.4651 7.4279 0.4761 12.455-2.1166 10.759-10.047 23.965-22.394 37.291-6.1551 6.6436-16.656 14.278-19.639 14.278-0.9956 0-8.0318-5.0847-15.636-11.299zm-897.33-130.24c0-2.1916 5.1868-9.6027 12.357-17.656l8.4891-9.5347-5.109-2.3848c-7.1848-3.3538-12.737-7.5801-12.737-9.6953 0-3.1709 5.4428-10.364 17.924-23.69 16.521-17.637 23.511-21.234 32.75-16.851 5.0528 2.3977 6.8631 5.6069 5.7359 10.169-0.67244 2.7215-1.7793 4.116-4.2439 5.3468-3.2098 1.6029-3.527 1.5752-8.5-0.74023-6.7422-3.1392-9.2965-3.0448-14.97 0.55324-4.075 2.5843-4.6958 3.4231-4.6958 6.345 0 3.9588 1.7545 5.7962 8.2988 8.691 8.9614 3.9641 19.138 2.3725 34.453-5.3884 5.8241-2.9513 8.2478-3.3017 8.2478-1.1925 0 2.0151-6.5074 7.0296-20.806 16.033-14.868 9.3619-23.006 15.454-35.935 26.904-10.373 9.1859-16.63 13.548-19.509 13.599-0.9625 0.0172-1.75-0.21172-1.75-0.50863z"/>
+</svg>
+	
+
+		<!-- Intro -->
+		<div class="content">
+			<h1>vivus<small>, bringing your SVGs to life</small></h1>
+			<p>Vivus is a lightweight JavaScript class (with no dependencies) that allows you to animate SVGs, giving them the appearence of being drawn. There are a variety of different animations available, as well as the option to create a custom script to draw your SVG in whatever way you like.</p>
+			<p class="intro-links">
+				<a href="//github.com/maxwellito/vivus" class="button bigger">View on GitHub</a>
+			</p>
+
+		</div>
+
+		<!-- Animation examples/demo -->
+		<div class="bloc bloc-demo">
+			<div class="content">
+
+				<h2>Animation types</h2>
+				<div>
+					<div class="col3">
+						<svg id="obturateur1" class="obturateur" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+				 width="100%" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" onclick="obt1.reset().play();">
+							<circle cx="100" cy="100" r="90"/>
+							<circle cx="100" cy="100" r="85.74"/>
+							<circle cx="100" cy="100" r="72.947"/>
+							<circle cx="100" cy="100" r="39.74"/>
+							<line x1="34.042" y1="131.189" x2="67.047" y2="77.781"/>
+							<line x1="31.306" y1="75.416" x2="92.41" y2="60.987"/>
+							<line x1="68.81" y1="34.042" x2="122.219" y2="67.046"/>
+							<line x1="124.584" y1="31.305" x2="139.013" y2="92.409"/>
+							<line x1="165.957" y1="68.809" x2="132.953" y2="122.219"/>
+							<line x1="168.693" y1="124.584" x2="107.59" y2="139.012"/>
+							<line x1="131.19" y1="165.957" x2="77.781" y2="132.953"/>
+							<line x1="75.417" y1="168.693" x2="60.987" y2="107.59"/>
+						</svg>
+						<div class="col-container">
+							<h3>Delayed</h3>
+							<p>Every path element is drawn at the same time with a small delay at the start. This is currently the default animation.</p>
+							<button onclick="obt1.reset().play();">replay</button>
+						</div>
+					</div>
+
+					<div class="col3">
+						<svg id="obturateur2" class="obturateur" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+				 width="100%" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" onclick="obt2.reset().play();">
+							<circle cx="100" cy="100" r="90"/>
+							<circle cx="100" cy="100" r="85.74"/>
+							<circle cx="100" cy="100" r="72.947"/>
+							<circle cx="100" cy="100" r="39.74"/>
+							<line x1="34.042" y1="131.189" x2="67.047" y2="77.781"/>
+							<line x1="31.306" y1="75.416" x2="92.41" y2="60.987"/>
+							<line x1="68.81" y1="34.042" x2="122.219" y2="67.046"/>
+							<line x1="124.584" y1="31.305" x2="139.013" y2="92.409"/>
+							<line x1="165.957" y1="68.809" x2="132.953" y2="122.219"/>
+							<line x1="168.693" y1="124.584" x2="107.59" y2="139.012"/>
+							<line x1="131.19" y1="165.957" x2="77.781" y2="132.953"/>
+							<line x1="75.417" y1="168.693" x2="60.987" y2="107.59"/>
+						</svg>
+						<div class="col-container">
+							<h3>Sync</h3>
+							<p>Each line is drawn synchronously. They all start and finish at the same time, hence the name `sync`.</p>
+							<button onclick="obt2.reset().play();">replay</button>
+						</div>
+					</div>
+
+					<div class="col3">
+						<svg id="obturateur3" class="obturateur" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+				 width="100%" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" onclick="obt3.reset().play();">
+							<circle cx="100" cy="100" r="90"/>
+							<circle cx="100" cy="100" r="85.74"/>
+							<circle cx="100" cy="100" r="72.947"/>
+							<circle cx="100" cy="100" r="39.74"/>
+							<line x1="34.042" y1="131.189" x2="67.047" y2="77.781"/>
+							<line x1="31.306" y1="75.416" x2="92.41" y2="60.987"/>
+							<line x1="68.81" y1="34.042" x2="122.219" y2="67.046"/>
+							<line x1="124.584" y1="31.305" x2="139.013" y2="92.409"/>
+							<line x1="165.957" y1="68.809" x2="132.953" y2="122.219"/>
+							<line x1="168.693" y1="124.584" x2="107.59" y2="139.012"/>
+							<line x1="131.19" y1="165.957" x2="77.781" y2="132.953"/>
+							<line x1="75.417" y1="168.693" x2="60.987" y2="107.59"/>
+						</svg>
+						<div class="col-container">
+							<h3>OneByOne</h3>
+							<p>Each path element is drawn one after the other. This animation gives the best impression of live drawing.</p>
+							<button onclick="obt3.reset().play();">replay</button>
+						</div>
+					</div>
+				</div>
+				<div class="clearer"></div>
+			</div>
+		</div>
+
+		<!-- Scripting -->
+		<div class="bloc bloc-timing">
+			<div class="content">
+
+				<h2>Timing function</h2>
+				<p>To give more freedom, it's possible to override the animation of each path and/or the entire SVG. It works a bit like the CSS animation timing function. But instead of using a cubic-bezier function, it use a simple JavaScript function. It must accept a number as parameter (between 0 to 1), then return a number (also between 0 and 1). It's a hook.</p>
+				<p>Here an example test to play around with the different properties available.</p>
+
+				<div>
+					<svg id="timing-example" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve" onclick="timing&&timing.reset().play();">
+						<g stroke-width="4" stroke-linecap="round" stroke-miterlimit="10">
+							<line x1="68.18066" y1="68.18066" x2="131.81934" y2="131.81934"/>
+							<line x1="68.18066" y1="131.82031" x2="131.81934" y2="68.17969"/>
+							<circle cx="100" cy="100" r="65"/>
+							<circle cx="100" cy="100" r="75"/>
+							<circle cx="100" cy="100" r="85"/>
+							<circle cx="100" cy="100" r="95"/>
+						</g>
+					</svg>
+					<div class="timing-description">
+						<p>Type
+							<span class="button-group">
+								<button onclick="timingTest(this,'type','delayed');" class="active"><span>delayed</span></button>
+								<button onclick="timingTest(this,'type','sync');"><span>sync</span></button>
+								<button onclick="timingTest(this,'type','oneByOne');"><span>oneByOne</span></button>
+							</span>
+						</p>
+						<p>Path timing function
+							<span class="button-group">
+								<button onclick="timingTest(this,'path','LINEAR');" class="active"><span>linear</span></button>
+								<button onclick="timingTest(this,'path','EASE');"><span>ease</span></button>
+								<button onclick="timingTest(this,'path','EASE_IN');"><span>ease-in</span></button>
+								<button onclick="timingTest(this,'path','EASE_OUT');"><span>ease-out</span></button>
+								<button onclick="timingTest(this,'path','EASE_OUT_BOUNCE');"><span>ease-out bounce</span></button>
+							</span>
+						</p>
+						<p>Anim timing function
+							<span class="button-group">
+								<button onclick="timingTest(this,'anim','LINEAR');" class="active"><span>linear</span></button>
+								<button onclick="timingTest(this,'anim','EASE');"><span>ease</span></button>
+								<button onclick="timingTest(this,'anim','EASE_IN');"><span>ease-in</span></button>
+								<button onclick="timingTest(this,'anim','EASE_OUT');"><span>ease-out</span></button>
+								<button onclick="timingTest(this,'anim','EASE_OUT_BOUNCE');"><span>ease-out bounce</span></button>
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Scripting example -->
+		<div class="bloc bloc-scenario">
+			<div class="content">
+
+				<div class="script-example">
+					<svg id="polaroid" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+				 viewBox="0 0 200 160" enable-background="new 0 0 200 160" onclick="pola.reset().play();">
+
+				 		<!-- Case -->
+				 		<!-- The case items will be drawn at the same time (attribute `data-async` on each tag) with a custom duration of 40 frames (attribute `data-duration`). WARNING: When you want to draw a bloc asynchronously (like here), the last item need to be `data-async` free. Otherwise the following tags will also start at the same time. I know it's a bit confusing, play a bit with it and you'll see. -->
+						<path data-async data-duration="40" d="
+							M106.725,104.742c-0.773,2.498-3.586,4.229-6.285,3.867L12.473,96.802c-2.699-0.363-4.262-2.682-3.49-5.18l25.164-81.436
+							c0.771-2.496,3.584-4.229,6.283-3.866l87.966,11.808c2.699,0.362,4.264,2.68,3.49,5.179L106.725,104.742z"/>
+						<path data-async data-duration="40" d="
+							M101.02,123.207c-0.773,2.5-3.587,4.23-6.286,3.867L6.766,115.27c-2.699-0.363-4.26-2.682-3.488-5.182l2.91-9.417
+							c0.771-2.499,3.585-4.23,6.285-3.87l87.967,11.809c2.699,0.361,4.261,2.682,3.49,5.18L101.02,123.207z"/>
+						<line data-async data-duration="40" x1="103.377" y1="128.225" x2="154.768" y2="155.32"/>
+						<line data-async data-duration="40" x1="109.852" y1="112.684" x2="155.035" y2="136.906"/>
+						<path data-async data-duration="40" d="
+							M9.096,120.207l47.932,21.994c0,0,98.06,12.414,97.74,13.119c-0.318,0.709,5.426-16.205,5.426-16.205l-2.646-96.842
+							c-1.098-7.587-2.467-11.8-8.559-15.024l-12.635-6.604"/>
+						<path data-async data-duration="40" d="
+							M161.586,38.135l30.717,16.085c0,0,5.295,2.323,4.543,6.504l-3.215,10.527c-0.648,2.621-2.939,4.988-8.229,2.798l-9.154-4.701
+							l-11.834,56.441"/>
+						<path data-duration="40" d="
+							M183.148,49.518c0,0,5.295,2.324,4.543,6.506l-3.215,10.526c-0.648,2.622-2.938,4.988-8.229,2.798"/>
+
+						<!-- Lens -->
+						<!-- All item will be drawn line by line, with an exception for the first one, a little delay (attribute `data-delay) to make a break between the drawing of the case and the start of the lens part -->
+						<path data-delay="20" d="
+							M87.176,56.143C83.274,68.78,69.043,77.538,55.395,75.706S33.846,62.146,37.75,49.511c3.903-12.637,18.135-21.392,31.783-19.562
+							C83.181,31.782,91.081,43.51,87.176,56.143z"/>
+						<path d="
+							M92.745,56.891c-4.785,15.48-22.219,26.213-38.942,23.969C37.079,78.615,27.4,64.245,32.184,48.763
+							c4.783-15.48,22.218-26.211,38.94-23.968C87.848,27.041,97.528,41.411,92.745,56.891z"/>
+						<path d="
+							M78.99,26.933c16.169,7.426,19.398,10.989,22.026,20.105c1.283,4.449,1.271,9.411-0.3,14.489
+							c-4.783,15.479-22.217,26.213-38.941,23.969c-8.68-1.165-21.171-7.963-25.613-14.055"/>
+						<path d="
+							M42.602,50.162c3.137-10.157,14.573-17.193,25.543-15.722"/>
+
+						<!-- Flash -->
+						<!-- This tag does not have any extra attribute. So it will start when the previous tag is finished. His duration and delay will be the one given in the options. -->
+						<path d="
+							M103.789,29.275c-0.568,1.841,0.582,3.549,2.57,3.818l12.807,1.72c1.988,0.266,4.062-1.012,4.633-2.851l1.66-5.38
+							c0.568-1.843-0.582-3.551-2.57-3.816l-12.807-1.72c-1.988-0.268-4.062,1.01-4.633,2.85L103.789,29.275z"/>
+
+						<!-- Output -->
+						<!-- Same case as Flash -->
+						<path d="
+							M11.129,105.791c-0.297,0.965,0.305,1.855,1.346,1.994l81.446,10.932c1.038,0.141,2.123-0.527,2.42-1.49l0,0
+							c0.298-0.961-0.304-1.855-1.343-1.996l-81.447-10.93C12.51,104.16,11.426,104.828,11.129,105.791L11.129,105.791z"/>
+
+						<!-- Design (color lines on the front) -->
+						<!-- All the lines will start at the same time, because they all have the attribute `data-async` -->
+						<line data-async x1="47.583" y1="101.505" x2="51.561" y2="88.267"/>
+						<line data-async x1="53.391" y1="102.326" x2="57.047" y2="90.125"/>
+						<line data-async x1="59.224" y1="103.068" x2="62.749" y2="91.295"/>
+						<line data-async x1="65.057" y1="103.814" x2="69.015" y2="90.637"/>
+						<line data-async x1="72.87" y1="19.969" x2="75.497" y2="11.082"/>
+						<line data-async x1="78.512" y1="21.325" x2="81.317" y2="11.868"/>
+						<line data-async x1="83.833" y1="23.718" x2="87.16" y2="12.582"/>
+						<line data-async x1="89.145" y1="26.141" x2="92.939" y2="13.498"/>
+
+					</svg>
+					<div class="example-description">
+						<h2>Scenarize</h2>
+						<p>This feature allows you to script the animation of your SVG. To do this, the custom values will be set directly in the DOM of the SVG.</p>
+						<p>Here is an example using <i>scenario-sync</i>.<br>I would recommend you look at the source code and the readme file for more information.</p>
+						<button onclick="pola.reset().play();">replay</button>
+						<button onclick="pola.play(-3);">rewind</button>
+					</div>
+					<div class="clearer"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Info and documentation link -->
+		<div class="bloc bloc-doc">
+			<div class="content">
+				<p class="center">Play with it on <a href="https://maxwellito.github.io/vivus-instant/">Vivus instant</a>.</p>
+				<p class="center">More information and documentation on <a href="https://github.com/maxwellito/vivus#vivusjs">GitHub</a>.</p>
+			</div>
+		</div>
+
+		<!-- Goodbye -->
+		<div class="content">
+			<p class="goodbye-head">Thanks for watching.</p>
+			<p class="goodbye-sub">Made with <span class="striked">love</span> <span class="italic">a keyboard</span></p>
+		</div>
+
+		<!-- Le scripts -->
+		<script src="vivus.js"></script>
+		<script>
+			function easeOutBounce (x) {
+				var base = -Math.cos(x * (0.5 * Math.PI)) + 1;
+				var rate = Math.pow(base,1.5);
+				var rateR = Math.pow(1 - x, 2);
+				var progress = -Math.abs(Math.cos(rate * (2.5 * Math.PI) )) + 1;
+				return (1- rateR) + (progress * rateR);
+			}
+
+			var timing,
+				timingProps = {
+					type: 'delayed',
+					duration: 150,
+					start: 'autostart',
+					pathTimingFunction: Vivus.LINEAR,
+					animTimingFunction: Vivus.LINEAR
+				};
+
+			function timingTest (buttonEl, property, type) {
+				var activeSibling = buttonEl.parentNode.querySelector('button.active');
+				activeSibling.classList.remove('active');
+				buttonEl.classList.add('active');
+
+				timingProps.type = (property === 'type') ? type : timingProps.type;
+				timingProps.pathTimingFunction = (property === 'path') ? Vivus[type] : timingProps.pathTimingFunction;
+				timingProps.animTimingFunction = (property === 'anim') ? Vivus[type] : timingProps.animTimingFunction;
+
+				timing && timing.stop().destroy();
+				timing = new Vivus('timing-example', timingProps);
+			}
+
+			
+    var hi = new Vivus(
+        'hi-there', 
+        {
+            type: 'oneByOne', 
+            duration: 240, 
+            start: 'autostart', 
+            dashGap: 20, 
+            forceRender: false
+        },
+        function () {
+            console.log('Animation finished. [log triggered from callback]');
+        }
+    );
+            
+			var	obt1 = new Vivus('obturateur1', {type: 'delayed', duration: 150}),
+				obt2 = new Vivus('obturateur2', {type: 'sync', duration: 150}),
+				obt3 = new Vivus('obturateur3', {type: 'oneByOne', duration: 150}),
+				pola = new Vivus('polaroid', {type: 'scenario-sync', duration: 20, forceRender: false});
+		</script>
+	</body>
+</html>
