@@ -9,14 +9,21 @@
         @charset 'utf-8';
         @font-face{font-family:'SDF';src:url('/public/Fonts/IRANSansLight.woff') format('woff'),url('/public/Fonts/IRANSansLight.ttf') format('truetype');font-weight:normal}
         @font-face{font-family:'SDF';src:url('/public/Fonts/IRANSansMedium.woff') format('woff'),url('/public/Fonts/IRANSansMedium.ttf') format('truetype');font-weight:bold}
+        @font-face{font-family:'BYekan';src:url('/public/Fonts/BYekan.eot') format("eot"),url('/public/Fonts/BYekan.woff') format("woff"),url('/public/Fonts/BYekan.ttf') format("truetype")}
 
         body {
             margin: 0 0 40px;
-            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            font-family: 'BYekan', 'SDF', 'Tahoma', sans-serif;
             font-weight: 200;
             color: #666666;
             word-break: break-word;
         }
+        .sdf{
+            font-family: 'SDF' , tahoma !important;
+        }
+        .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:BYekan ,'BYekan','b yekan',tahoma!important}
+
+
 
         svg {
             max-width: 100% !important;
