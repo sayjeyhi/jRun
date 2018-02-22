@@ -1,7 +1,7 @@
 @charset 'utf-8';
-@font-face{font-family:'SDF';src:url('/mySite/public/Fonts/IRANSansLight.woff') format('woff'),url('/mySite/public/Fonts/IRANSansLight.ttf') format('truetype');font-weight:normal}
-@font-face{font-family:'SDF';src:url('/mySite/public/Fonts/IRANSansMedium.woff') format('woff'),url('/mySite/public/Fonts/IRANSansMedium.ttf') format('truetype');font-weight:bold}
-@font-face{font-family:'BYekan';src:url('/mySite/public/Fonts/BYekan.eot') format("eot"),url('/mySite/public/Fonts/BYekan.woff') format("woff"),url('/mySite/public/Fonts/BYekan.ttf') format("truetype")}
+@font-face{font-family:'SDF';src:url('Fonts/IRANSansLight.woff') format('woff'),url('Fonts/IRANSansLight.ttf') format('truetype');font-weight:normal}
+@font-face{font-family:'SDF';src:url('Fonts/IRANSansMedium.woff') format('woff'),url('Fonts/IRANSansMedium.ttf') format('truetype');font-weight:bold}
+@font-face{font-family:'BYekan';src:url('Fonts/BYekan.eot') format("eot"),url('Fonts/BYekan.woff') format("woff"),url('Fonts/BYekan.ttf') format("truetype")}
 
 body {
     margin: 0 0 40px;
@@ -37,7 +37,7 @@ svg *:not(.doNotUnfill) {
 .bloc{
     text-align:center;
     border-radius: 6rem 0 6rem 6rem;
-    padding: 40px !important;
+    padding: 30px 40px 20px 40px !important;
     border-left: 0 !important;
     border-bottom: 0 !important;
     border-top: 3px solid;
@@ -161,6 +161,72 @@ input#check-box:checked + label:after {
     bottom: -26px;
     right: -24px;
 }
+
+
+body:-webkit-scrollbar { display:none; }
+
+.content {
+    position:fixed;
+    left:50%;
+    margin-left:-250px;
+    top:50px;
+    width:500px;
+}
+
+.intro {
+    width:100%;
+    text-align:center;
+    font-size:40px;
+    margin:0 0 20px;
+}
+
+.text {
+    direction: rtl;
+    text-align: center;
+    font-size:19px;
+    padding-left:2%;
+    height:30px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.credit {
+    margin-top:14px;
+    font-size:14px;
+    font-style:italic;
+}
+
+.arrow {
+    text-align:center;
+    margin-top:5px;
+    font-size:46px;
+    backface-visiblilty:hidden;
+}
+
+i{
+    position: relative;
+    margin-right: 4px;
+}
+
+i.linearicon-code{
+    bottom: -6px;
+    font-size: 25px;
+}
+
+
+.green{
+    color: #30bc37;
+}
+
+.red{
+    color: #9b3a15;
+}
+
+.blur{
+    color: #4463a8;
+}
+
+
 
 @-webkit-keyframes sk-scaleout {
     0% {

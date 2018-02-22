@@ -18,7 +18,10 @@ var jRun = {
      *  Main plugIns that you want to load at page load
      *  @note : add only main plugIns here and use init
      */
-    plugins: ["vivus/vivus.min"],
+    plugins: [{
+        url : "vivus/vivus.min" ,
+        kind : "PlugIn"
+    }],
 
 
     /**
@@ -51,7 +54,7 @@ var jRun = {
         jRun.firstCall = true;
         jRun.init(jRun.plugins , function(){
             jRun.allowInit = true;
-        } , "PlugIn");
+        });
     },
 
 
@@ -60,13 +63,14 @@ var jRun = {
      * Add specific file (css,js) to our page
      * @param urls
      * @param callback
-     * @param kind
+     * @TODO ADD multi URL of a specific kind support
      */
-    init: function (urls , callback , kind ) {
+    init: function (urls , callback ) {
 
         if(jRun.allowInit || jRun.firstCall) {
             jRun.firstCall = false;
-            var loadFinishCount = 0,
+            var waiting = false,
+                loadFinishCount = 0,
                 endsWith = function (str, suffix) {
                     if (str === null || suffix === null)
                         return false;
@@ -77,67 +81,85 @@ var jRun = {
                         name = name.substr(0, name.indexOf("/"));
                     }
                     return name.replace([".min", "/", ".", "-"], "");
+                },
+                loadFile = function (url, wait, kind, after) {
+
+                    if(!waiting) {
+                        log(url);
+                        // add file added flag
+                        var fileCorrectName = scapeFilename(url);
+                        jRun["has" + fileCorrectName] = true;
+
+                        kind = kind === "" ? "" : kind + "/";
+
+                        var type = endsWith(url, ".css") ? "css" : "js";
+                        var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
+
+
+                        url = url.indexOf(type) > 0 ? url : url + "." + type;
+                        if (type === "js") {
+                            fileReference.src = "public/Javascript/" + kind + url + "?Ver=" + jRun.version;
+                        } else {
+                            fileReference.type = "text/css";
+                            fileReference.rel = "stylesheet";
+                            fileReference.href = "public/Css/" + kind + url + "?Ver=" + jRun.version;
+                        }
+
+                        fileReference.onload = function () {
+                            if (jRun.debugMode) {
+                                log('Loaded script ...');
+                            }
+                            loadFinish();
+                        };
+
+                        fileReference.onerror = function () {
+                            if (jRun.debugMode) {
+                                log('Error loading script !');
+                            }
+                        };
+
+                        document.head.appendChild(fileReference);
+                    }else{
+                        // sleep a bit and call your self again after 100 milliSeconds
+                        setTimeout(function () {
+                            loadFile(url, wait, after);
+                        } , 100);
+                    }
+                },
+                loadFinish = function () {
+                    loadFinishCount++;
+
+                    if (urls.length === loadFinishCount) {
+                        if (callback !== undefined && typeof callback === "function") {
+                            callback();
+                        } else {
+                            var callbackError = new Error();
+                            var callbackStack = callbackError.stack.toString().split(/\r\n|\n/);
+                            throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
+                        }
+                    }
                 };
 
 
             urls = (typeof urls === "string") ? [urls] : urls;
-            kind = kind === undefined ? "Utility/" : kind + "/";
+
 
 
             for (var i = 0; i < urls.length; i++) {
 
-                // add file added flag
-                var fileCorrectName = scapeFilename(urls[i]);
-                jRun["has" + fileCorrectName] = true;
+                var address, wait, after, kind = '';
 
+                // is an object and has some dependency
+                wait = urls[i].hasOwnProperty('wait') ? urls[i]['wait'] : undefined;
+                kind = urls[i].hasOwnProperty('kind') ? urls[i]['kind'] : 'Utility';
+                after = urls[i].hasOwnProperty('after') ? urls[i]['after'] : undefined;
+                address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
 
-                var type = endsWith(urls[i], ".css") ? "css" : "js";
-                var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
-
-
-                var url = urls[i].indexOf(type) > 0 ? urls[i] : urls[i] + "." + type;
-                if (type === "js") {
-                    fileReference.src = "public/Javascript/" + kind + url + "?Ver=" + jRun.version;
-                } else {
-                    fileReference.type = "text/css";
-                    fileReference.rel = "stylesheet";
-                    fileReference.href = "public/Css/" + kind + url + "?Ver=" + jRun.version;
-                }
-
-                fileReference.onload = function () {
-                    if (jRun.debugMode) {
-                        log('Loaded script ...');
-                    }
-                    loadFinish();
-                };
-
-                fileReference.onerror = function () {
-                    if (jRun.debugMode) {
-                        log('Error loading script !');
-                    }
-                };
-
-                document.head.appendChild(fileReference);
+                loadFile(address, wait, kind, after);
             }
 
-            /**
-             * run after finishing load of files array
-             */
-            var loadFinish = function () {
-                loadFinishCount++;
-
-                if (urls.length === loadFinishCount) {
-                    if (callback !== undefined && typeof callback === "function") {
-                        callback();
-                    } else {
-                        var callbackError = new Error();
-                        var callbackStack = callbackError.stack.toString().split(/\r\n|\n/);
-                        throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
-                    }
-                }
-            };
         }else{
-            /* call again after 100 milliSecond */
+            // sleep a bit and call your self again after 100 milliSeconds
             setTimeout(function () {
                 jRun.init(urls , callback , kind);
             } , 100);

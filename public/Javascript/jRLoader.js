@@ -380,10 +380,12 @@ var jRLoader = {
                 }, 500);
             }
         );
-        document.getElementById("jafarRezaeiAnimate").onclick = function () {
+
+        document.getElementById("jafarRezaeiAnimate").addEventListener("click" , function () {
+            alert("Ssssss");
             this.classList.remove("finished");
             hi_jRun.reset().play();
-        };
+        });
     }
 
 };
