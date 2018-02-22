@@ -347,7 +347,9 @@ var jRLoader = {
 
     afterLoad : function () {
         if(jRLoader.animationLoading && jRLoader.filesLoading) {
-            jRLoader._('.loadingText').innerHTML = "نمایش محتوا اسکرول";
+            jRLoader._('.loadingText').style.visibility = "hidden";
+            jRLoader._('.spinner').style.visibility = "hidden";
+            jRLoader._('.arrowLoaded').style.display = "block";
         }
     },
 
@@ -358,6 +360,7 @@ var jRLoader = {
         jRLoader._('.bloc').style.borderColor = color;
         jRLoader._('.spinner').style.backgroundColor = color;
         jRLoader._('#jafarRezaeiAnimate').style.color = color;
+        jRLoader._('.arrowLoaded').style.color = color;
         jRLoader._('#jafarRezaeiAnimate').style.fill = color;
 
         var hi_jRun = new Vivus(
