@@ -11,7 +11,13 @@ svg{
 svg :not(.doNotUnfill){stroke:currentColor}
 .container{direction:rtl;text-align:center;margin:50px 20% 20px;background:rgba(255,255,255,0.12)}
 
-.bloc{text-align:center;border-radius:6rem 0 6rem 6rem;padding:30px 40px 20px!important;border-left:0!important;border-bottom:0!important;border-top:3px solid;border-right:3px dashed;position:relative}
+.easeMe{
+    transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+}
+
+.bloc{text-align:center;border-radius:6rem 0 6rem 6rem;padding:30px 40px 20px;border-left:0!important;border-bottom:0!important;border-top:3px solid;border-right:3px dashed;position:relative}
 #jafarRezaeiAnimate{fill-opacity:0;width:100%;stroke-width:4}
 #jafarRezaeiAnimate.finished{fill-opacity:1;stroke-width:5;-webkit-filter:drop-shadow(-1px 7px 3px rgba(0,0,0,0.2));filter:drop-shadow(-1px 7px 3px rgba(0,0,0,0.2))}
 #jafarRezaeiAnimate.finished *{color:rgba(255,255,255,0.4)}
@@ -75,6 +81,29 @@ i.linearicon-code{bottom:-6px;font-size:25px}
 .green{color:#30bc37!important}
 .red{color:#cb0600!important}
 .blur{color:#2031a8!important}
+
+
+.copyright {
+    text-align: center;
+}
+
+.copyright .smalltext{
+    font-size: 13px;
+    margin-top: 11px;
+    color: #7176f0;
+}
+
+.copyright .vallarMorghulis{
+    color: #10c010;
+}
+
+.copyright .isResponsive{
+    display: block;
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 22px;
+}
+
 @-webkit-keyframes sk-scaleout {
     0%{-webkit-transform:scale(0)}
     50%{-webkit-transform:scale(0.3);opacity:70}
