@@ -9,7 +9,7 @@ svg{
     transition: all 2.7s ease-in-out,width 0.01s ease-in-out;
     max-width:100%!important;-webkit-filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4));filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4))}
 svg :not(.doNotUnfill){stroke:currentColor}
-.container{direction:rtl;text-align:center;margin:50px 20% 20px;background:rgba(255,255,255,0.12)}
+.container{z-index: 999999;cursor:pointer;direction:rtl;text-align:center;margin:50px 20% 20px;background:rgba(255,255,255,0.12)}
 
 .easeMe{
     transition: all 0.7s ease-in-out;
@@ -83,14 +83,43 @@ i.linearicon-code{bottom:-6px;font-size:25px}
 .blur{color:#2031a8!important}
 
 
+.section h4{
+    text-align: right;
+    font-family: 'SDF' , SDF , BYekan , tahoma;
+    margin: 5px 0 7px 0;
+    font-size: 23px;
+    color: #6492ef;
+}
+
+.section .smalltext{
+    font-size: 13px;
+    font-weight: normal;
+    color: #8a8a8a;
+    text-align: right;
+    direction: rtl;
+}
+
+.section ul{
+    list-style-type: none;
+    text-align: right;
+}
+.section .right{
+    text-align: right;
+}
+.section ul.left{
+    text-align: left !important;
+}
+
 .copyright {
     text-align: center;
+    direction: rtl;
 }
 
 .copyright .smalltext{
     font-size: 13px;
     margin-top: 11px;
     color: #7176f0;
+    text-align: center !important;
 }
 
 .copyright .vallarMorghulis{
