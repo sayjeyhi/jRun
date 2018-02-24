@@ -353,15 +353,19 @@ var jRLoader = {
         }
     },
 
-
-    build: function () {
-
+    setRandomColor: function () {
         var color = jRLoader.materialColor();
         jRLoader._('.bloc').style.borderColor = color;
         jRLoader._('.spinner').style.backgroundColor = color;
         jRLoader._('#jafarRezaeiAnimate').style.color = color;
         jRLoader._('.arrowLoaded').style.color = color;
         jRLoader._('#jafarRezaeiAnimate').style.fill = color;
+    },
+
+
+    build: function () {
+
+        jRLoader.setRandomColor();
 
         var hi_jRun = new Vivus(
             'jafarRezaeiAnimate',
@@ -384,13 +388,11 @@ var jRLoader = {
             }
         );
 
+
         document.getElementById("jafarRezaeiAnimate").addEventListener("click" , function () {
-            var color = jRLoader.materialColor();
-            jRLoader._('.bloc').style.borderColor = color;
-            jRLoader._('.spinner').style.backgroundColor = color;
-            jRLoader._('#jafarRezaeiAnimate').style.color = color;
-            jRLoader._('.arrowLoaded').style.color = color;
-            jRLoader._('#jafarRezaeiAnimate').style.fill = color;
+
+            jRLoader.setRandomColor();
+
             this.classList.remove("finished");
             hi_jRun.reset().play();
         });
