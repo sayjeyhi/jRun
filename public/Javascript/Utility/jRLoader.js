@@ -496,6 +496,7 @@ var jRLoader = {
 
     afterLoad : function () {
         if(jRLoader.animationLoading && jRLoader.filesLoading) {
+            jRLoader._('.container').style.display = "block";
             jRLoader._('.loadingText').style.visibility = "hidden";
             jRLoader._('.spinner').style.visibility = "hidden";
             jRLoader._('.arrowLoaded').style.display = "block";
