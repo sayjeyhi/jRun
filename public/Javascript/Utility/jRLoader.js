@@ -153,7 +153,7 @@ var jRLoader = {
     '         data-end="width:100%;background:hsl(920, 100%, 50%);"></div>' +
     '</div>' +
     '' +
-    '<div id="info" style="position: fixed;bottom: 10px;left:10px">0</div>',
+    '<div id="info" style="position: fixed;bottom: 10px;left:10px;display:none">0</div>',
 
 
 
