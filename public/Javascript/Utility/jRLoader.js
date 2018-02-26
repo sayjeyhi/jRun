@@ -496,7 +496,6 @@ var jRLoader = {
 
     afterLoad : function () {
         if(jRLoader.animationLoading && jRLoader.filesLoading) {
-            jRLoader._('.container').style.display = "block";
             jRLoader._('.loadingText').style.visibility = "hidden";
             jRLoader._('.spinner').style.visibility = "hidden";
             jRLoader._('.arrowLoaded').style.display = "block";
@@ -504,7 +503,7 @@ var jRLoader = {
             skrollr.init({
                 render: function (data) {
                     //Log the current scroll position.
-                    jRLoader._('#info').innerHTML = data.curTop;
+                    //jRLoader._('#info').innerHTML = data.curTop;
                 }
             });
         }
