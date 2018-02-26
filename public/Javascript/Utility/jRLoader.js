@@ -8,151 +8,151 @@ var jRLoader = {
         start: 'autostart'
     },
     htmlData : '' +
-    '<div class="content">\n' +
-    '    <section class="sectionOne"\n' +
-    '         data-6800="opacity:1;"\n' +
-    '         data-7200="opacity:0">\n' +
-    '        <div class="intro"\n' +
-    '             data-0="transform:translateY(575px);opacity:0.3;font-size:100px;"\n' +
-    '             data-250="transform:translateY(240px);opacity:0.3;font-size:80px"\n' +
-    '             data-500="transform:translateY(0px);opacity:1;font-size:40px;">من کی هستم؟\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <p class="text"\n' +
-    '           data-500="opacity:0;"\n' +
-    '           data-1000="opacity:1;">من جعفر رضائی هستم\n' +
-    '            <i class="linearicon linearicon-game green"></i> ، یه برنامه نویس\n' +
-    '            <i style="color:#ff9884;text-decoration:line-through;font-weight: normal;">جلاد</i> خلاق\n' +
-    '            <i class="linearicon linearicon-rocket green"></i> وب ، حدود ۱۰ سـال هست که با\n' +
-    '            <i class="linearicon linearicon-heart red"></i> و\n' +
-    '            <i class="linearicon linearicon-keyboard green"\n' +
-    '               style="font-size: 26px;position: relative;bottom: -5px;margin-left: 4px;"></i> کدنویسی انجام میدم یه آدم\n' +
-    '            <i class="linearicon linearicon-height green"></i> بلند هستم ، یه مدت بود میخاستم روی سـایتم\n' +
-    '            <i class="linearicon linearicon-network-lock green"></i> کار کنم ولی وقت نمیشد\n' +
-    '            <i class="linearicon linearicon-battery-low1 green"></i> و بلاخره پس از دو سال اینو ساختم\n' +
-    '            <i class="linearicon linearicon-magic-wand green"></i>خب برای یه کم بازی\n' +
-    '            <i class="linearicon linearicon-gamepad green"></i> با سایت من اسکرول\n' +
-    '            <i class="linearicon linearicon-fingers-scroll-vertical green"></i> کنید .\n' +
-    '        </p>\n' +
-    '        <div style="text-align: center;">\n' +
-    '            <img data-1000="opacity:0;"\n' +
-    '                 data-1500="opacity:1;" class="myAvatar" src="public/Image/me.jpg" alt="JafarRezaei"\n' +
-    '                 title="جعفر رضایی"/>\n' +
-    '        </div>\n' +
-    '    </section>\n' +
-    '\n' +
-    '    <section class="section sectionTwo"\n' +
-    '         data-7200="opacity:0;transform:translateY(0px);"\n' +
-    '         data-7500="opacity:1;transform:translateY(-320px);"\n' +
-    '         data-8500="opacity:1;transform:translateY(-320px);"\n' +
-    '         data-8700="opacity:0;transform:translateY(-950px);"\n' +
-    '    >\n' +
-    '        <i class="linearicon linearicon-archery partIcon"></i>\n' +
-    '        <h4>ابزارهای تولید شده توسط من</h4>\n' +
-    '        <div class="smalltext">بعضی از کدها که در اوقات باحوصلگی انجامشون میدم</div>\n' +
-    '        <hr class="separator"/>\n' +
-    '        <ul class="left">\n' +
-    '            <li>\n' +
-    '                Jamework\n' +
-    '                <span class="colored sdf">فریم ورک شی گرا، ، ساده وسریع برای php</span>\n' +
-    '            </li>\n' +
-    '            <li>\n' +
-    '                jRun\n' +
-    '                <span class="colored sdf">کتابخانه جاوا اسکریپت برای توسعه سریع وب</span>\n' +
-    '            </li>\n' +
-    '            <li>Persian PDF with js\n' +
-    '                <span class="colored sdf">اجرای خصوصی</span>\n' +
-    '            </li>\n' +
-    '        </ul>\n' +
-    '    </section>\n' +
-    '\n' +
-    '    <section class="section sectionThree"\n' +
-    '         data-8700="opacity:0;transform:translateY(0px);"\n' +
-    '         data-9000="opacity:1;transform:translateY(-500px);"\n' +
-    '         data-10000="opacity:1;transform:translateY(-500px);"\n' +
-    '         data-10200="opacity:0;transform:translateY(-950px);"\n' +
-    '    >\n' +
-    '        <i class="linearicon linearicon-beaker partIcon"></i>\n' +
-    '        <h4>پروژه های انجام شده من </h4>\n' +
-    '        <div class="smalltext">یه سری پروژه که بنده انجامشون داده ام</div>\n' +
-    '        <hr class="separator"/>\n' +
-    '        <ul class="left">\n' +
-    '            <li>\n' +
-    '                Citygram\n' +
-    '                <a class="colored" href="http://citygram.ir" target="_blank">[See project]</a>\n' +
-    '            </li>\n' +
-    '            <li>\n' +
-    '                Jurchin\n' +
-    '                <a class="colored" href="http://jurchin.com" target="_blank">[See project]</a>\n' +
-    '            </li>\n' +
-    '            <li>\n' +
-    '                Idea processor\'s company\n' +
-    '                <span class="colored" href="#">[private]</span>\n' +
-    '            </li>\n' +
-    '            <li>\n' +
-    '                TorfehNegar web applications\n' +
-    '                <span class="colored" href="#">[private]</span>\n' +
-    '            </li>\n' +
-    '        </ul>\n' +
-    '    </section>\n' +
-    '\n' +
-    '    <section class="section sectionThree"\n' +
-    '         data-10200="opacity:0;transform:translateY(0px);"\n' +
-    '         data-10500="opacity:1;transform:translateY(-680px);"\n' +
-    '         data-11500="opacity:1;transform:translateY(-680px);"\n' +
-    '         data-11700="opacity:0;transform:translateY(-950px);"\n' +
-    '    >\n' +
-    '        <i class="linearicon linearicon-reading partIcon"></i>\n' +
-    '        <h4>دانش فنی </h4>\n' +
-    '        <div class="smalltext">چیزهایی که مثلا بلدم ...</div>\n' +
-    '        <hr class="separator"/>\n' +
-    '        <ul class="left">\n' +
-    '            <li>PHP <span class="colored">[laravel , zend framework2 , twig , blade , orm ... ]</span></li>\n' +
-    '            <li>Javascript <span class="colored">[pure , jquery , angular.js , react.js , pug ...]</span></li>\n' +
-    '            <li>Web <span class="colored">[html5 , css3 , velocity , animate , svg ...]</span></li>\n' +
-    '            <li>Database <span class="colored">[Mysql , sqlserver , sqlite , noSql ...]</span></li>\n' +
-    '            <li>Graphic <span class="colored">[AdobePhotoShop , CorelDraw , paint :)) ...]</span></li>\n' +
-    '        </ul>\n' +
-    '    </section>\n' +
-    '\n' +
-    '    <section class="section sectionFour"\n' +
-    '         data-11700="opacity:0;transform:translateY(0px);"\n' +
-    '         data-12000="opacity:1;transform:translateY(-880px);"\n' +
-    '         data-13000="opacity:1;transform:translateY(-880px);"\n' +
-    '         data-13200="opacity:0;transform:translateY(-950px);"\n' +
-    '    >\n' +
-    '        <i class="linearicon linearicon-chair partIcon"></i>\n' +
-    '        <h4>وضعیت فعلی </h4>\n' +
-    '        <div class="smalltext">الان کجایی و چیکار میکنی؟</div>\n' +
-    '        <hr class="separator"/>\n' +
-    '        <div class="regularText">\n' +
-    '            در حال حاضر در طرفه نگار که یکی از شرکت های بزرگ نرم افزاری ایرانی هست مشغول کار هستم و کارهای جالبی رو انجام میدیم و تجربه خوبی هست یه سری دوستای متفاوت و\n' +
-    '            و یه سبک از زندگی جدید برای من ، شاید یه مدت لازم هست استراحت کنی و مثل یه کارمند عادی زندگی کنی ...\n' +
-    '        </div>\n' +
-    '    </section>\n' +
-    '\n' +
-    '    <section class="section sectionLast"\n' +
-    '         data-13200="opacity:0;transform:translateY(0px);"\n' +
-    '         data-13500="opacity:1;transform:translateY(-970px);"\n' +
-    '    >\n' +
-    '        <div class="copyright">\n' +
-    '            <i class="linearicon linearicon-laptop-phone isResponsive"></i>\n' +
-    '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد\n' +
-    '            <div class="smalltext"> کمکی هم از دست من بربیاد در خدمتم <span\n' +
-    '                    class="vallarMorghulis">[ والارمورقولیس ]</span></div>\n' +
-    '        </div>\n' +
-    '    </section>\n' +
-    '\n' +
-    '\n' +
-    '</div>\n' +
-    '\n' +
-    '\n' +
-    '<div class="progressBarHolder">\n' +
-    '    <div class="progress"\n' +
-    '         data-0="width:0%;background:hsl(200, 100%, 50%);"\n' +
-    '         data-end="width:100%;background:hsl(920, 100%, 50%);"></div>\n' +
-    '</div>\n' +
-    '\n' +
+    '<div class="content">' +
+    '    <section class="sectionOne"' +
+    '         data-2800="opacity:1;"' +
+    '         data-3200="opacity:0">' +
+    '        <div class="intro"' +
+    '             data-0="transform:translateY(575px);opacity:0.3;font-size:100px;"' +
+    '             data-250="transform:translateY(240px);opacity:0.3;font-size:80px"' +
+    '             data-500="transform:translateY(0px);opacity:1;font-size:40px;">من کی هستم؟' +
+    '        </div>' +
+    '' +
+    '        <p class="text"' +
+    '           data-500="opacity:0;"' +
+    '           data-1000="opacity:1;">من جعفر رضائی هستم' +
+    '            <i class="linearicon linearicon-game green"></i> ، یه برنامه نویس' +
+    '            <i style="color:#ff9884;text-decoration:line-through;font-weight: normal;">جلاد</i> خلاق' +
+    '            <i class="linearicon linearicon-rocket green"></i> وب ، حدود ۱۰ سـال هست که با' +
+    '            <i class="linearicon linearicon-heart red"></i> و' +
+    '            <i class="linearicon linearicon-keyboard green"' +
+    '               style="font-size: 26px;position: relative;bottom: -5px;margin-left: 4px;"></i> کدنویسی انجام میدم یه آدم' +
+    '            <i class="linearicon linearicon-height green"></i> بلند هستم ، یه مدت بود میخاستم روی سـایتم' +
+    '            <i class="linearicon linearicon-network-lock green"></i> کار کنم ولی وقت نمیشد' +
+    '            <i class="linearicon linearicon-battery-low1 green"></i> و بلاخره پس از دو سال اینو ساختم' +
+    '            <i class="linearicon linearicon-magic-wand green"></i>خب برای یه کم بازی' +
+    '            <i class="linearicon linearicon-gamepad green"></i> با سایت من اسکرول' +
+    '            <i class="linearicon linearicon-fingers-scroll-vertical green"></i> کنید .' +
+    '        </p>' +
+    '        <div style="text-align: center;">' +
+    '            <img data-1000="opacity:0;"' +
+    '                 data-1500="opacity:1;" class="myAvatar" src="public/Image/me.jpg" alt="JafarRezaei"' +
+    '                 title="جعفر رضایی"/>' +
+    '        </div>' +
+    '    </section>' +
+    '' +
+    '    <section class="section sectionTwo"' +
+    '         data-3200="opacity:0;transform:translateY(0px);"' +
+    '         data-3500="opacity:1;transform:translateY(-320px);"' +
+    '         data-4500="opacity:1;transform:translateY(-320px);"' +
+    '         data-4700="opacity:0;transform:translateY(-950px);"' +
+    '    >' +
+    '        <i class="linearicon linearicon-archery partIcon"></i>' +
+    '        <h4>ابزارهای تولید شده توسط من</h4>' +
+    '        <div class="smalltext">بعضی از کدها که در اوقات باحوصلگی انجامشون میدم</div>' +
+    '        <hr class="separator"/>' +
+    '        <ul class="left">' +
+    '            <li>' +
+    '                Jamework' +
+    '                <span class="colored sdf">فریم ورک شی گرا، ، ساده وسریع برای php</span>' +
+    '            </li>' +
+    '            <li>' +
+    '                jRun' +
+    '                <span class="colored sdf">کتابخانه جاوا اسکریپت برای توسعه سریع وب</span>' +
+    '            </li>' +
+    '            <li>Persian PDF with js' +
+    '                <span class="colored sdf">اجرای خصوصی</span>' +
+    '            </li>' +
+    '        </ul>' +
+    '    </section>' +
+    '' +
+    '    <section class="section sectionThree"' +
+    '         data-4700="opacity:0;transform:translateY(0px);"' +
+    '         data-5000="opacity:1;transform:translateY(-500px);"' +
+    '         data-6000="opacity:1;transform:translateY(-500px);"' +
+    '         data-6200="opacity:0;transform:translateY(-950px);"' +
+    '    >' +
+    '        <i class="linearicon linearicon-beaker partIcon"></i>' +
+    '        <h4>پروژه های انجام شده من </h4>' +
+    '        <div class="smalltext">یه سری پروژه که بنده انجامشون داده ام</div>' +
+    '        <hr class="separator"/>' +
+    '        <ul class="left">' +
+    '            <li>' +
+    '                Citygram' +
+    '                <a class="colored" href="http://citygram.ir" target="_blank">[See project]</a>' +
+    '            </li>' +
+    '            <li>' +
+    '                Jurchin' +
+    '                <a class="colored" href="http://jurchin.com" target="_blank">[See project]</a>' +
+    '            </li>' +
+    '            <li>' +
+    '                Idea processor\'s company' +
+    '                <span class="colored" href="#">[private]</span>' +
+    '            </li>' +
+    '            <li>' +
+    '                TorfehNegar web applications' +
+    '                <span class="colored" href="#">[private]</span>' +
+    '            </li>' +
+    '        </ul>' +
+    '    </section>' +
+    '' +
+    '    <section class="section sectionThree"' +
+    '         data-6200="opacity:0;transform:translateY(0px);"' +
+    '         data-6500="opacity:1;transform:translateY(-680px);"' +
+    '         data-7500="opacity:1;transform:translateY(-680px);"' +
+    '         data-7700="opacity:0;transform:translateY(-950px);"' +
+    '    >' +
+    '        <i class="linearicon linearicon-reading partIcon"></i>' +
+    '        <h4>دانش فنی </h4>' +
+    '        <div class="smalltext">چیزهایی که مثلا بلدم ...</div>' +
+    '        <hr class="separator"/>' +
+    '        <ul class="left">' +
+    '            <li>PHP <span class="colored">[laravel , zend framework2 , twig , blade , orm ... ]</span></li>' +
+    '            <li>Javascript <span class="colored">[pure , jquery , angular.js , react.js , pug ...]</span></li>' +
+    '            <li>Web <span class="colored">[html5 , css3 , velocity , animate , svg ...]</span></li>' +
+    '            <li>Database <span class="colored">[Mysql , sqlserver , sqlite , noSql ...]</span></li>' +
+    '            <li>Graphic <span class="colored">[AdobePhotoShop , CorelDraw , paint :)) ...]</span></li>' +
+    '        </ul>' +
+    '    </section>' +
+    '' +
+    '    <section class="section sectionFour"' +
+    '         data-7700="opacity:0;transform:translateY(0px);"' +
+    '         data-8000="opacity:1;transform:translateY(-880px);"' +
+    '         data-9300="opacity:1;transform:translateY(-880px);"' +
+    '         data-9500="opacity:0;transform:translateY(-950px);"' +
+    '    >' +
+    '        <i class="linearicon linearicon-chair partIcon"></i>' +
+    '        <h4>وضعیت فعلی </h4>' +
+    '        <div class="smalltext">الان کجایی و چیکار میکنی؟</div>' +
+    '        <hr class="separator"/>' +
+    '        <div class="regularText">' +
+    '            در حال حاضر در طرفه نگار که یکی از شرکت های بزرگ نرم افزاری ایرانی هست مشغول کار هستم و کارهای جالبی رو انجام میدیم و تجربه خوبی هست یه سری دوستای متفاوت و' +
+    '            و یه سبک از زندگی جدید برای من ، شاید یه مدت لازم هست استراحت کنی و مثل یه کارمند عادی زندگی کنی ...' +
+    '        </div>' +
+    '    </section>' +
+    '' +
+    '    <section class="section sectionLast"' +
+    '         data-9500="opacity:0;transform:translateY(0px);"' +
+    '         data-10000="opacity:1;transform:translateY(-970px);"' +
+    '    >' +
+    '        <div class="copyright">' +
+    '            <i class="linearicon linearicon-laptop-phone isResponsive"></i>' +
+    '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد' +
+    '            <div class="smalltext"> کمکی هم از دست من بربیاد در خدمتم <span' +
+    '                    class="vallarMorghulis">[ والارمورقولیس ]</span></div>' +
+    '        </div>' +
+    '    </section>' +
+    '' +
+    '' +
+    '</div>' +
+    '' +
+    '' +
+    '<div class="progressBarHolder">' +
+    '    <div class="progress"' +
+    '         data-0="width:0%;background:hsl(200, 100%, 50%);"' +
+    '         data-end="width:100%;background:hsl(920, 100%, 50%);"></div>' +
+    '</div>' +
+    '' +
     '<div id="info" style="position: fixed;bottom: 10px;left:10px">0</div>',
 
 
