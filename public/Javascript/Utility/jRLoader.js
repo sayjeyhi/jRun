@@ -2,6 +2,7 @@ var jRLoader = {
     choosedColor: '',
     filesLoading: false,
     animationLoading: false,
+    isLoaded: false,
     timingProps : {
         type: 'delayed',
         duration: 150,
@@ -60,7 +61,8 @@ var jRLoader = {
     '                jRun' +
     '                <span class="colored sdf">کتابخانه جاوا اسکریپت برای توسعه سریع وب</span>' +
     '            </li>' +
-    '            <li>Persian PDF with js' +
+    '            <li>' +
+    '                Persian PDF with js' +
     '                <span class="colored sdf">اجرای خصوصی</span>' +
     '            </li>' +
     '        </ul>' +
@@ -494,7 +496,7 @@ var jRLoader = {
 
 
     afterLoad : function () {
-        if(jRLoader.animationLoading && jRLoader.filesLoading) {
+        if(jRLoader.animationLoading && jRLoader.filesLoading && !jRLoader.isLoaded) {
             jRLoader._('.loadingText').style.visibility = "hidden";
             jRLoader._('.spinner').style.visibility = "hidden";
             jRLoader._('.arrowLoaded').style.display = "block";
