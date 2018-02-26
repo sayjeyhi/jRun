@@ -1,5 +1,5 @@
 var jRLoader = {
-
+    choosedColor: '',
     filesLoading: false,
     animationLoading: false,
     timingProps : {
@@ -499,6 +499,10 @@ var jRLoader = {
             jRLoader._('.spinner').style.visibility = "hidden";
             jRLoader._('.arrowLoaded').style.display = "block";
             jRLoader._('#loadData').innerHTML = jRLoader.htmlData;
+           
+            // set color to copy right icon responsive
+            jRLoader._('.isResponsive').color = jRLoader.choosedColor;
+            
             skrollr.init({
                 render: function (data) {
                     //Log the current scroll position.
@@ -515,6 +519,7 @@ var jRLoader = {
         jRLoader._('#jafarRezaeiAnimate').style.color = color;
         jRLoader._('.arrowLoaded').style.color = color;
         jRLoader._('#jafarRezaeiAnimate').style.fill = color;
+        jRLoader.choosedColor = color;
     },
 
 
