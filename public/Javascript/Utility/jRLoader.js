@@ -138,8 +138,9 @@ var jRLoader = {
     '        <div class="copyright">' +
     '            <i class="linearicon linearicon-laptop-phone isResponsive"></i>' +
     '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد' +
-    '            <div class="smalltext"> کمکی هم از دست من بربیاد در خدمتم <span' +
-    '                    class="vallarMorghulis">[ والارمورقولیس ]</span></div>' +
+    '            <div class="smalltext"> کمکی هم از دست من بربیاد در خدمتم ' +
+    '               <div class="smalltext Roboto">dmFsYXIgbW9yZ2h1bGlzIEBqYWZhclJlemFlaQ==</div>'+
+    '           </div>' +
     '        </div>' +
     '    </section>' +
     '' +
