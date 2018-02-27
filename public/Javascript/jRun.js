@@ -37,6 +37,7 @@ var jRun = {
     allowInit: false,
 
     loadFinishCount : 0,
+    urls : [],
     
     /**
      * Build whole mechanism of jRun here
@@ -60,9 +61,10 @@ var jRun = {
 
     
     loadFinish: function () {
+        
         jRun.loadFinishCount++;
 
-        if (urls.length === jRun.loadFinishCount) {
+        if (jRun.urls.length === jRun.loadFinishCount) {
             if (callback !== undefined && typeof callback === "function") {
                 callback();
             } else {
@@ -162,7 +164,8 @@ var jRun = {
 
                 jRun.loadFile(address, wait, kind, after, ignore);
             }
-
+            
+            jRun.urls = urls;
         }else{
             // sleep a bit and call your self again after 100 milliSeconds
             setTimeout(function () {
