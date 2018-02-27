@@ -505,6 +505,7 @@ var jRLoader = {
             // set color to copy right icon responsive
             jRLoader._('.isResponsive').color = jRLoader.choosedColor;
             
+            jRLoader.isLoaded = true;
             skrollr.init({
                 render: function (data) {
                     //Log the current scroll position.
