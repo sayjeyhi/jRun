@@ -11,7 +11,7 @@ body{margin:0 0 40px;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:
 .Roboto{font-family:'Roboto','Tahoma',sans-serif}
 svg{transition:all .9s ease-in-out,width .01s ease-in-out;max-width:100%!important;-webkit-filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4));filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4))}
 svg :not(.doNotUnfill){stroke:currentColor}
-.container{z-index:999999;cursor:pointer;direction:rtl;text-align:center;margin:50px 20% 20px;background:rgba(255,255,255,0.12)}
+.container{z-index:999999;position:relative;cursor:pointer;direction:rtl;text-align:center;margin:50px 20% 20px;background:rgba(255,255,255,0.12)}
 .easeMe{transition:all .7s ease-in-out;-webkit-transition:all .7s ease-in-out;-moz-transition:all .7s ease-in-out}
 .partIcon{float:left;font-size:44px;margin-top:12px;color:#26cf15}
 .separator{margin-top:15px;border:none;border-top:3px solid #d5d5d5}
