@@ -36,7 +36,8 @@ var jRun = {
      */
     allowInit: false,
 
-
+    loadFinishCount : 0,
+    
     /**
      * Build whole mechanism of jRun here
      * system will run it at page load.
@@ -59,9 +60,9 @@ var jRun = {
 
     
     loadFinish: function () {
-        loadFinishCount++;
+        jRun.loadFinishCount++;
 
-        if (urls.length === loadFinishCount) {
+        if (urls.length === jRun.loadFinishCount) {
             if (callback !== undefined && typeof callback === "function") {
                 callback();
             } else {
@@ -74,7 +75,18 @@ var jRun = {
 
     
     loadFile : function (url, wait, kind, after, ignore) {
-        if(!waiting) {
+        var endsWith = function (str, suffix) {
+            if (str === null || suffix === null)
+                return false;
+            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+        },
+        scapeFilename = function (name) {
+            if (name.indexOf("/") > 0) {
+                name = name.substr(0, name.indexOf("/"));
+            }
+            return name.replace([".min", "/", ".", "-"], "");
+        };
+        if(!jRun.waiting) {
             log(url);
             // add file added flag
             var fileCorrectName = scapeFilename(url);
@@ -134,26 +146,8 @@ var jRun = {
 
         if(jRun.allowInit || jRun.firstCall) {
             jRun.firstCall = false;
-            var waiting = false,
-                loadFinishCount = 0,
-                endsWith = function (str, suffix) {
-                    if (str === null || suffix === null)
-                        return false;
-                    return str.indexOf(suffix, str.length - suffix.length) !== -1;
-                },
-                scapeFilename = function (name) {
-                    if (name.indexOf("/") > 0) {
-                        name = name.substr(0, name.indexOf("/"));
-                    }
-                    return name.replace([".min", "/", ".", "-"], "");
-                },
-                
-
-
 
             urls = (typeof urls === "string") ? [urls] : urls;
-
-
 
             for (var i = 0; i < urls.length; i++) {
 
