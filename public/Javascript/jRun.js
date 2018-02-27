@@ -11,7 +11,7 @@ var jRun = {
     /**
      *  jRun version to check updates and force files caching validation
      */
-    version: "0.1.08",
+    version: "0.1.09",
 
 
     /**
@@ -73,7 +73,7 @@ var jRun = {
     },
 
     
-    loadFile : function (url, wait, kind, after) {
+    loadFile : function (url, wait, kind, after, ignore) {
         if(!waiting) {
             log(url);
             // add file added flag
@@ -94,12 +94,19 @@ var jRun = {
                 fileReference.rel = "stylesheet";
                 fileReference.href = "public/Css/" + kind + url + "?Ver=" + jRun.version;
             }
-
+            
+            if(ignore){
+                jRun.loadFinish();
+            }
+            
             fileReference.onload = function () {
                 if (jRun.debugMode) {
                     log('Loaded script ...');
                 }
-                loadFinish();
+                
+                if(!ignore){
+                    jRun.loadFinish();
+                }
             };
 
             fileReference.onerror = function () {
@@ -112,7 +119,7 @@ var jRun = {
         }else{
             // sleep a bit and call your self again after 100 milliSeconds
             setTimeout(function () {
-                jRun.loadFile(url, wait, after);
+                jRun.loadFile(url, wait, after, ignore);
             } , 100);
         }
     },
@@ -150,15 +157,16 @@ var jRun = {
 
             for (var i = 0; i < urls.length; i++) {
 
-                var address, wait, after, kind = '';
+                var address, wait, after, ignore, kind = '';
 
                 // is an object and has some dependency
                 wait = urls[i].hasOwnProperty('wait') ? urls[i]['wait'] : undefined;
                 kind = urls[i].hasOwnProperty('kind') ? urls[i]['kind'] : 'Utility';
                 after = urls[i].hasOwnProperty('after') ? urls[i]['after'] : undefined;
                 address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
+                ignore = urls[i].hasOwnProperty('ignore') ? urls[i]['ignore'] : false;
 
-                jRun.loadFile(address, wait, kind, after);
+                jRun.loadFile(address, wait, kind, after, ignore);
             }
 
         }else{
