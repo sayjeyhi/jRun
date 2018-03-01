@@ -515,6 +515,7 @@ var jRLoader = {
         }
     },
 
+
     setRandomColor: function () {
         var color = jRLoader.materialColor();
         jRLoader._('.bloc').style.borderColor = color;
