@@ -173,6 +173,11 @@ var jRun = {
 // get sass or less  concat them
 // get js files and minify and concat them
 // get pug and transpile it
+/* // Create the event
+var event = new CustomEvent("name-of-event", { "detail": "Example of an event" });
 
+// Dispatch/Trigger/Fire the event
+document.dispatchEvent(event);
+*/
 
 jRun.build();
