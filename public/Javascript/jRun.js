@@ -169,5 +169,10 @@ var jRun = {
 
 };
 
+// features :
+// get sass or less  concat them
+// get js files and minify and concat them
+// get pug and transpile it
+
 
 jRun.build();
