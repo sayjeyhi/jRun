@@ -151,7 +151,7 @@ var jRun = {
 
                 // is an object and has some dependency
                 wait = urls[i].hasOwnProperty('wait') ? urls[i]['wait'] : undefined;
-                kind = urls[i].hasOwnProperty('kind') ? urls[i]['kind'] : 'Utility';
+                kind = urls[i].hasOwnProperty('kind') ? urls[i]['kind'] : '';
                 after = urls[i].hasOwnProperty('after') ? urls[i]['after'] : undefined;
                 address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
 
