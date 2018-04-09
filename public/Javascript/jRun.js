@@ -19,7 +19,7 @@ var jRun = {
      *  @note : add only main plugIns here and use init
      */
     plugins: [{
-        url : "vivus/vivus.min" ,
+        url : "jquery/jquery.min" ,
         kind : "PlugIn"
     }],
 
@@ -95,7 +95,6 @@ var jRun = {
                         var type = endsWith(url, ".css") ? "css" : "js";
                         var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
 
-
                         url = url.indexOf(type) > 0 ? url : url + "." + type;
                         if (type === "js") {
                             fileReference.src = "public/Javascript/" + kind + url + "?Ver=" + jRun.version;
@@ -155,7 +154,13 @@ var jRun = {
                 after = urls[i].hasOwnProperty('after') ? urls[i]['after'] : undefined;
                 address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
 
-                loadFile(address, wait, kind, after);
+                if(Array.isArray(address)){
+                    for (var j = address.length - 1; j >= 0; j--) {
+                        loadFile(address[j], wait, kind, after);
+                    }
+                }else{
+                    loadFile(address, wait, kind, after);
+                }
             }
 
         }else{
