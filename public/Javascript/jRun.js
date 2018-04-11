@@ -18,10 +18,7 @@ var jRun = {
      *  Main plugIns that you want to load at page load
      *  @note : add only main plugIns here and use init
      */
-    plugins: [{
-        url : "jquery/jquery.min" ,
-        kind : "PlugIn"
-    }],
+    plugins: [],
 
 
     /**
@@ -130,8 +127,6 @@ var jRun = {
                 loadFinish = function (inOneUrlArray) {
                     if(!inOneUrlArray)
                         loadFinishCount++;
-
-                    log(urls.length);
 
                     if (urls.length === loadFinishCount) {
                         if (callback !== undefined && typeof callback === "function") {
