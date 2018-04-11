@@ -82,10 +82,11 @@ var jRun = {
                     }
                     return name.replace([".min", "/", ".", "-"], "");
                 },
-                loadFile = function (url, wait, kind, after) {
+                loadFile = function (url, wait, kind, after, inOneUrlArray) {
+
 
                     if(!waiting) {
-                        log(url);
+
                         // add file added flag
                         var fileCorrectName = scapeFilename(url);
                         jRun["has" + fileCorrectName] = true;
@@ -104,12 +105,13 @@ var jRun = {
                             fileReference.href = "public/Css/" + kind + url + "?Ver=" + jRun.version;
                         }
 
-                        fileReference.onload = function () {
+                        fileReference.onload = function(){
                             if (jRun.debugMode) {
-                                log('Loaded script ...');
+                                log('Loaded script ...' + inOneUrlArray + " - " + url);
                             }
-                            loadFinish();
-                        };
+                            loadFinish(inOneUrlArray);
+                        }; 
+
 
                         fileReference.onerror = function () {
                             if (jRun.debugMode) {
@@ -125,12 +127,16 @@ var jRun = {
                         } , 100);
                     }
                 },
-                loadFinish = function () {
-                    loadFinishCount++;
+                loadFinish = function (inOneUrlArray) {
+                    if(!inOneUrlArray)
+                        loadFinishCount++;
+
+                    log(urls.length);
 
                     if (urls.length === loadFinishCount) {
                         if (callback !== undefined && typeof callback === "function") {
                             callback();
+                            log("StartCallbak ........")
                         } else {
                             var callbackError = new Error();
                             var callbackStack = callbackError.stack.toString().split(/\r\n|\n/);
@@ -155,11 +161,13 @@ var jRun = {
                 address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
 
                 if(Array.isArray(address)){
+                    
                     for (var j = address.length - 1; j >= 0; j--) {
-                        loadFile(address[j], wait, kind, after);
+                        var inOneUrlArray =  (j == 1) ? false : true;
+                        loadFile(address[j], wait, kind, after , inOneUrlArray);
                     }
                 }else{
-                    loadFile(address, wait, kind, after);
+                    loadFile(address, wait, kind, after , false);
                 }
             }
 
