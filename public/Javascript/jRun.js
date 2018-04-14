@@ -4,7 +4,6 @@
  * @author   : jafar rezaei [bomber.man87@yahoo.com <http://jrjs.ir>]
  * @updated : 2018/02/20
  */
-var log;
 var jRun = {
 
 
@@ -17,8 +16,13 @@ var jRun = {
     /**
      *  Main plugIns that you want to load at page load
      *  @note : add only main plugIns here and use init
+     *        jRun.plugins = [{
+                url : "jquery/jquery.min" ,
+                kind : "PlugIn"
+              }];
      */
     plugins: [],
+
 
 
     /**
@@ -41,7 +45,7 @@ var jRun = {
     build: function () {
 
         // alias log instead of console.log in dev mode
-        log = function (message) {
+        window.log = function (message) {
             var e = new Error();
             var stack = e.stack.toString().split(/\r\n|\n/);
             console.log(message, '          [' + stack[1] + ']');
@@ -49,11 +53,23 @@ var jRun = {
 
         // load main configuration
         jRun.firstCall = true;
-        jRun.init(jRun.plugins , function(){
+
+        if(jRun.plugins.length > 0) {
+            jRun.buildPlugIns();
+        }else{
+            jRun.allowInit = true;
+        }
+    },
+
+
+    /**
+     * Build main plug-ins
+     */
+    buildPlugIns: function () {
+        jRun.init(jRun.plugins, function () {
             jRun.allowInit = true;
         });
     },
-
 
 
     /**
@@ -79,8 +95,23 @@ var jRun = {
                     }
                     return name.replace([".min", "/", ".", "-"], "");
                 },
-                loadFile = function (url, wait, kind, after, inOneUrlArray) {
+                loadFinish = function (inOneUrlArray) {
+                    if(!inOneUrlArray)
+                        loadFinishCount++;
 
+                    if (urls.length === loadFinishCount) {
+                        if (callback !== undefined && typeof callback === "function") {
+                            callback();
+                            log("StartCallbak ........")
+                        } else {
+                            var callbackError = new Error();
+                            var callbackStack = callbackError.stack.toString().split(/\r\n|\n/);
+                            throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
+                        }
+                    }
+                },
+
+                loadFile = function (url, wait, kind, after, inOneUrlArray) {
 
                     if(!waiting) {
 
@@ -93,7 +124,8 @@ var jRun = {
                         var type = endsWith(url, ".css") ? "css" : "js";
                         var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
 
-                        url = url.indexOf(type) > 0 ? url : url + "." + type;
+                        url = endsWith(url , "." + type) ? url : url + "." + type;
+
                         if (type === "js") {
                             fileReference.src = "public/Javascript/" + kind + url + "?Ver=" + jRun.version;
                         } else {
@@ -123,21 +155,6 @@ var jRun = {
                             loadFile(url, wait, after);
                         } , 100);
                     }
-                },
-                loadFinish = function (inOneUrlArray) {
-                    if(!inOneUrlArray)
-                        loadFinishCount++;
-
-                    if (urls.length === loadFinishCount) {
-                        if (callback !== undefined && typeof callback === "function") {
-                            callback();
-                            log("StartCallbak ........")
-                        } else {
-                            var callbackError = new Error();
-                            var callbackStack = callbackError.stack.toString().split(/\r\n|\n/);
-                            throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
-                        }
-                    }
                 };
 
 
@@ -156,9 +173,9 @@ var jRun = {
                 address = urls[i].hasOwnProperty('url') ? urls[i]['url'] : urls[i];
 
                 if(Array.isArray(address)){
-                    
+
                     for (var j = address.length - 1; j >= 0; j--) {
-                        var inOneUrlArray =  (j == 1) ? false : true;
+                        var inOneUrlArray =  (j !== 1);
                         loadFile(address[j], wait, kind, after , inOneUrlArray);
                     }
                 }else{
