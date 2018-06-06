@@ -44,7 +44,7 @@ var jRun = {
      * Default properties for loadFile function
      */
     defaultLoadProperties : {
-        wait : false,
+        waitLoading : true,
         kind : false,
         url : '',
         attributes : {},
@@ -98,8 +98,7 @@ var jRun = {
      * @param name
      */
     setLoadedFlag: function (name) {
-        var fileCorrectName = jRun.sanitizeName(name);
-        jRun.loadedFiles.push(fileCorrectName);
+        jRun.loadedFiles.push(name);
     },
 
 
@@ -109,7 +108,6 @@ var jRun = {
      * @returns {boolean}
      */
     checkLoad: function (script) {
-        script = jRun.sanitizeName(script);
         return jRun.loadedFiles.indexOf(script) > -1;
     },
 
@@ -129,12 +127,14 @@ var jRun = {
             if (!obj)
                 continue;
 
-            for (var key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    if (typeof obj[key] === 'object')
-                        out[key] = jRun.deepExtend(out[key], obj[key]);
-                    else
-                        out[key] = obj[key];
+            if(typeof obj === 'object') {
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        if (typeof obj[key] === 'object')
+                            out[key] = jRun.deepExtend(out[key], obj[key]);
+                        else
+                            out[key] = obj[key];
+                    }
                 }
             }
         }
@@ -170,6 +170,7 @@ var jRun = {
      * Build main plug-ins
      */
     buildPlugIns: function () {
+        jRun.allowInit = false;
         jRun.init(jRun.plugins, function () {
             jRun.allowInit = true;
         });
@@ -201,7 +202,9 @@ var jRun = {
 
                     if (urls.length === loadFinishCount) {
                         if (callback !== undefined && typeof callback === "function") {
-                            log("Start All Callback ........");
+                            if(jRun.debugMode) {
+                                log("...... Start All Callback ......");
+                            }
                             callback();
                         } else {
                             var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
@@ -212,6 +215,11 @@ var jRun = {
 
                 loadFile = function (o) {
 
+                    if(jRun.debugMode && o.url === ""){
+                        var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
+                        throw "File url is empty [" + callbackStack[1] + "]";
+                    }
+
 
                     if(!waiting) {
 
@@ -220,7 +228,7 @@ var jRun = {
                         // if file is loaded already
                         if(jRun.checkLoad(realName)){
                             if(jRun.debugMode){
-                                log(realName + " Was already added !");
+                                log(realName + " : Was already added !");
                                 log(jRun.loadedFiles);
                             }
                             loadFinish(o);
@@ -240,6 +248,7 @@ var jRun = {
 
                         var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
                         var url = endsWith(o.url , "." + type) ? o.url : o.url + "." + type;
+
 
                         o.beforeLoad();
 
@@ -263,20 +272,22 @@ var jRun = {
 
                         fileReference.onload = function(){
                             if (jRun.debugMode) {
-                                log('Loaded script ...' + o.multiFileUrl + " - " + o.url);
+                                log('Loaded -> ' + o.multiFileUrl + " -> " + o.url);
                             }
                             loadFinish(o);
                         };
 
 
+
                         fileReference.onerror = function () {
                             o.errorLoading();
                             if (jRun.debugMode) {
-                                log('Error loading script !');
+                                log('Error loading -> ' + o.multiFileUrl + " -> " + o.url);
                             }
                         };
 
                         document.head.appendChild(fileReference);
+
                     }else{
                         // sleep a bit and call your self again after 100 milliSeconds
                         setTimeout(function () {
@@ -290,19 +301,22 @@ var jRun = {
 
 
             urls.forEach(function (url) {
-                log(url);
-
                 var options = {};
 
-                options.url = url.hasOwnProperty('url') ? url['url'] : url;
+
                 options = jRun.deepExtend({}, jRun.defaultLoadProperties , url);
 
+                if(typeof url === "string") {
+                    options['url'] = url;
+                    options['kind'] = 'Utility';
+                }
+
                 if(Array.isArray(options.url)){
-                    for (var j = options.url.length - 1; j >= 0; j--) {
-                        options.multiFileUrl = (j !== 1);
-                        options.url = options.url[j];
+                    options.url.forEach(function(subUrl , index){
+                        options.multiFileUrl = (index !== 1);
+                        options.url = subUrl;
                         loadFile(options);
-                    }
+                    });
                 }else{
                     loadFile(options);
                 }

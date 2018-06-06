@@ -60,8 +60,14 @@
 <div id="loadData"></div>
 
 <!-- Add Main jRun Project script -->
-<script type="application/javascript" src="/public/Javascript/jRun.js"></script>
+<script type="application/javascript" src="/jRun/public/Javascript/jRun.js"></script>
 <script type="application/javascript">
+    jRun.plugins = [{
+        url : "vivus/vivus.min" ,
+        kind : "PlugIn"
+    }];
+    jRun.buildPlugIns();
+
     jRun.init([
         "jRLoader",
         "skrollr/skrollr.min",
