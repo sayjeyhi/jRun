@@ -156,15 +156,11 @@ var jRun = {
     build: function () {
 
         // alias log instead of console.log in dev mode
-        var log = function (message , type ) {
+        window.log = function (message , type ) {
             type = type || 'log';
             var stack = new Error().stack.toString().split(/\r\n|\n/);
             console[type](message, '          [' + stack[1] + ']');
         };
-
-        if(window){
-            window.log = log;
-        }
 
         // load main configuration
         this.firstCall = true;

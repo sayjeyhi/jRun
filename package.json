@@ -1,20 +1,19 @@
 {
-  "name": "jrjsir",
-  "version": "1.0.0",
-  "description": "Personal site ",
-  "main": "index.js",
+  "name": "jrun.js",
+  "version": "1.0.17",
+  "description": "Helpe loading javascripts and styles with a lot of advantages ",
+  "main": "public/javascript/jRun.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "jafar"
+    "javascript",
+    "framework",
+    "styleLoader",
+    "javascriptLoader"
   ],
   "author": "bomber.man87@yahoo.com",
-  "license": "ISC",
-  "dependencies": {
-    "paper-ripple": "^0.3.0"
-  },
-  "devDependencies": {
-    "webpack-dev-server": "^2.11.1"
-  }
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
 }
