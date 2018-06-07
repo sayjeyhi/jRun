@@ -1,6 +1,6 @@
 {
   "name": "jrun.js",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Helpe loading javascripts and styles with a lot of advantages ",
   "main": "public/javascript/jRun.js",
   "scripts": {
