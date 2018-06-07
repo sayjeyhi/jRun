@@ -89,7 +89,7 @@ var jRun = {
      * @return string
      */
     sanitizeName: function (name) {
-        return name.replace(/.min|\/|\.|-/g, "_");
+        return name.replace(/\/|\.|-/g, "_");
     },
 
 
@@ -156,12 +156,12 @@ var jRun = {
         };
 
         // load main configuration
-        jRun.firstCall = true;
+        this.firstCall = true;
 
-        if(jRun.plugins.length > 0) {
-            jRun.buildPlugIns();
+        if(this.plugins.length > 0) {
+            this.buildPlugIns();
         }else{
-            jRun.allowInit = true;
+            this.allowInit = true;
         }
     },
 
@@ -184,158 +184,161 @@ var jRun = {
      */
     init: function (urls , callback ) {
 
-        if(jRun.allowInit || jRun.firstCall) {
-            jRun.firstCall = false;
-            var waiting = false,
-                loadFinishCount = 0,
-                endsWith = function (str, suffix) {
-                    if (str === null || suffix === null)
-                        return false;
-                    return str.indexOf(suffix, str.length - suffix.length) !== -1;
-                },
-                loadFinish = function (o) {
-                    if(!o.multiFileUrl)
-                        loadFinishCount++;
-
-                    // call self after load function
-                    o.afterLoad();
-
-                    if (urls.length === loadFinishCount) {
-                        if (callback !== undefined && typeof callback === "function") {
-                            if(jRun.debugMode) {
-                                log("...... Start All Callback ......");
-                            }
-                            callback();
-                        } else {
-                            var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
-                            throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
-                        }
-                    }
-                },
-
-                loadFile = function (o) {
-
-                    if(jRun.debugMode && o.url === ""){
-                        var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
-                        throw "File url is empty [" + callbackStack[1] + "]";
-                    }
-
-
-                    if(!waiting) {
-
-                        var realName = jRun.sanitizeName(o.url);
-
-                        // if file is loaded already
-                        if(jRun.checkLoad(realName)){
-                            if(jRun.debugMode){
-                                log(realName + " : Was already added !");
-                                log(jRun.loadedFiles);
-                            }
-                            loadFinish(o);
-                            return false;
-                        }
-
-                        // add file added flag
-                        jRun.setLoadedFlag(realName);
-
-
-                        var kind = o.kind ? o.kind + "/" : "";
-                        var type = o.url.split('.').pop();
-
-                        if(jRun.allowedInitTypes.indexOf(type) < 0){
-                            type = jRun.defaultType;
-                        }
-
-                        var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
-                        var url = endsWith(o.url , "." + type) ? o.url : o.url + "." + type;
-
-
-                        o.beforeLoad();
-
-
-                        if (type === "js") {
-                            fileReference.src = "public/Javascript/" + kind + url + "?jVer=" + jRun.version;
-                        } else {
-                            fileReference.type = "text/css";
-                            fileReference.rel = "stylesheet";
-                            fileReference.href = "public/Css/" + kind + url + "?jVer=" + jRun.version;
-                        }
-
-
-                        jRun.notAllowedUserAttributes.forEach(function (attr) {
-                            delete o.attributes[attr];
-                        });
-
-
-                        // add user extra attributes
-                        fileReference = jRun.deepExtend(fileReference , o.attributes);
-
-                        fileReference.onload = function(){
-                            if (jRun.debugMode) {
-                                log('Loaded -> ' + o.multiFileUrl + " -> " + o.url);
-                            }
-                            loadFinish(o);
-                        };
-
-
-
-                        fileReference.onerror = function () {
-                            o.errorLoading();
-                            if (jRun.debugMode) {
-                                log('Error loading -> ' + o.multiFileUrl + " -> " + o.url);
-                            }
-                        };
-
-                        document.head.appendChild(fileReference);
-
-                    }else{
-                        // sleep a bit and call your self again after 100 milliSeconds
-                        setTimeout(function () {
-                            loadFile(o);
-                        } , 100);
-                    }
-                };
-
-
-            urls = (typeof urls === "string") ? [urls] : urls;
-
-
-            urls.forEach(function (url) {
-                var options = {};
-
-
-                options = jRun.deepExtend({}, jRun.defaultLoadProperties , url);
-
-                if(typeof url === "string") {
-                    options['url'] = url;
-                    options['kind'] = 'Utility';
-                }
-
-                if(Array.isArray(options.url)){
-                    options.url.forEach(function(subUrl , index){
-                        options.multiFileUrl = (index !== 1);
-                        options.url = subUrl;
-                        loadFile(options);
-                    });
-                }else{
-                    loadFile(options);
-                }
-            });
-
-        }else{
+        if(!(jRun.allowInit || jRun.firstCall)) {
             // sleep a bit and call your self again after 100 milliSeconds
             setTimeout(function () {
                 jRun.init(urls , callback);
             } , 100);
+            return false;
         }
 
-    }
+        jRun.firstCall = false;
+        var waiting = false,
+            loadFinishCount = 0,
+            endsWith = function (str, suffix) {
+                if (str === null || suffix === null)
+                    return false;
+                return str.indexOf(suffix, str.length - suffix.length) !== -1;
+            },
+            loadFinish = function (o) {
+                if(!o.multiFileUrl)
+                    loadFinishCount++;
 
+                // call self after load function
+                o.afterLoad();
+
+                if (urls.length === loadFinishCount) {
+                    if (callback !== undefined && typeof callback === "function") {
+                        if(jRun.debugMode) {
+                            log("...... Start All Callback ......");
+                        }
+                        callback();
+                    } else {
+                        var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
+                        throw "CallBack should be a function " + (typeof callback) + " given!          [" + callbackStack[1] + "]";
+                    }
+                }
+            },
+
+            loadFile = function (o) {
+
+                if(jRun.debugMode && o.url === ""){
+                    var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
+                    throw "File url is empty [" + callbackStack[1] + "]";
+                }
+
+
+                if(!waiting) {
+
+                    var realName = jRun.sanitizeName(o.url);
+
+                    // if file is loaded already
+                    if(jRun.checkLoad(realName)){
+                        if(jRun.debugMode){
+                            log(realName + " : Was already added !");
+                            log(jRun.loadedFiles);
+                        }
+                        loadFinish(o);
+                        return false;
+                    }
+
+                    // add file added flag
+                    jRun.setLoadedFlag(realName);
+
+
+                    var kind = o.kind ? o.kind + "/" : "";
+                    var type = o.url.split('.').pop();
+
+                    if(jRun.allowedInitTypes.indexOf(type) < 0){
+                        type = jRun.defaultType;
+                    }
+
+                    var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
+                    var url = endsWith(o.url , "." + type) ? o.url : o.url + "." + type;
+
+
+                    o.beforeLoad();
+
+
+                    if (type === "js") {
+                        fileReference.src = "public/Javascript/" + kind + url + "?jVer=" + jRun.version;
+                    } else {
+                        fileReference.type = "text/css";
+                        fileReference.rel = "stylesheet";
+                        fileReference.href = "public/Css/" + kind + url + "?jVer=" + jRun.version;
+                    }
+
+
+                    jRun.notAllowedUserAttributes.forEach(function (attr) {
+                        delete o.attributes[attr];
+                    });
+
+
+                    // add user extra attributes
+                    fileReference = jRun.deepExtend(fileReference , o.attributes);
+
+                    fileReference.onload = function(){
+                        if (jRun.debugMode) {
+                            log('Loaded -> ' + o.multiFileUrl + " -> " + o.url);
+                        }
+                        loadFinish(o);
+                    };
+
+
+
+                    fileReference.onerror = function () {
+                        o.errorLoading();
+                        if (jRun.debugMode) {
+                            log('Error loading -> ' + o.multiFileUrl + " -> " + o.url);
+                        }
+                    };
+
+                    document.head.appendChild(fileReference);
+
+                }else{
+                    // sleep a bit and call your self again after 100 milliSeconds
+                    setTimeout(function () {
+                        loadFile(o);
+                    } , 100);
+                }
+            };
+
+
+        urls = (typeof urls === "string") ? [urls] : urls;
+
+
+        urls.forEach(function (url) {
+            var options = {};
+
+
+            options = jRun.deepExtend({}, jRun.defaultLoadProperties , url);
+
+            if(typeof url === "string") {
+                options['url'] = url;
+                options['kind'] = 'Utility';
+            }
+
+            if(Array.isArray(options.url)){
+                options.url.forEach(function(subUrl , index){
+                    options.multiFileUrl = (index !== 1);
+                    options.url = subUrl;
+                    loadFile(options);
+                });
+            }else{
+                loadFile(options);
+            }
+        });
+
+    }
 };
+
+jRun.build();
 
 // features :
 // get sass or less  concat them
 // get js files and minify and concat them
 // get pug and transpile it
 
-jRun.build();
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = jRun;
+}
