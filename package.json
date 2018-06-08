@@ -1,19 +1,22 @@
 {
   "name": "jrun.js",
-  "version": "1.0.18",
-  "description": "Helpe loading javascripts and styles with a lot of advantages ",
+  "version": "1.0.19",
+  "description": "Help loading javascripts and styles with a lot of advantages ",
   "main": "public/javascript/jRun.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "javascript",
+    "browserLazyloading",
+    "modules",
     "framework",
     "styleLoader",
     "javascriptLoader"
   ],
   "author": "bomber.man87@yahoo.com",
   "license": "MIT",
+  "homepage": "http://jrjs.ir",
+  "repository": "https://github.com/jafar-rezaei/jRun",
   "dependencies": {},
   "devDependencies": {}
 }

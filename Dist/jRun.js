@@ -1,8 +1,9 @@
 /**
  * Main JavaScript file to manage pages js
  *
- * @author   : jafar rezaei [bomber.man87@yahoo.com <http://jrjs.ir>]
- * @updated : 2018/06/07
+ * @author    : jafar rezaei <bomber.man87@yahoo.com>
+ * @website   : http://jrjs.ir
+ * @updated   : 2018/06/08
  */
 var jRun = {
 
@@ -10,7 +11,7 @@ var jRun = {
     /**
      *  jRun version to check updates and force files caching validation
      */
-    version: "1.0.18",
+    version: "1.0.19",
 
 
     /**
@@ -156,11 +157,15 @@ var jRun = {
     build: function () {
 
         // alias log instead of console.log in dev mode
-        window.log = function (message , type ) {
+        var log = function (message , type ) {
             type = type || 'log';
             var stack = new Error().stack.toString().split(/\r\n|\n/);
             console[type](message, '          [' + stack[1] + ']');
         };
+
+        if(typeof window !== 'undefined'){
+            window.log = log;
+        }
 
         // load main configuration
         this.firstCall = true;
