@@ -11,7 +11,7 @@ var jRun = {
     /**
      *  jRun version to check updates and force files caching validation
      */
-    version: "1.0.19",
+    version: "1.0.20",
 
 
     /**
