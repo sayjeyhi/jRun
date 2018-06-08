@@ -5,6 +5,7 @@ build passing ...
 Demo at : http//jrjs.ir
 
 ##Installation
+
 using npm :
 ```bash
 npm i --save jrjs.ir
