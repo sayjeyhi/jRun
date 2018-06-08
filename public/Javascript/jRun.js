@@ -1,8 +1,9 @@
 /**
  * Main JavaScript file to manage pages js
  *
- * @author   : jafar rezaei [bomber.man87@yahoo.com <http://jrjs.ir>]
- * @updated : 2018/06/07
+ * @author    : jafar rezaei <bomber.man87@yahoo.com>
+ * @website   : http://jrjs.ir
+ * @updated   : 2018/06/08
  */
 var jRun = {
 
@@ -10,7 +11,7 @@ var jRun = {
     /**
      *  jRun version to check updates and force files caching validation
      */
-    version: "1.0.17",
+    version: "1.0.19",
 
 
     /**
@@ -162,7 +163,7 @@ var jRun = {
             console[type](message, '          [' + stack[1] + ']');
         };
 
-        if(window){
+        if(typeof window !== 'undefined'){
             window.log = log;
         }
 
