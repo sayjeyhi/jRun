@@ -4,7 +4,7 @@ build passing ...
 
 Demo at : http//jrjs.ir
 
-##Installation
+## Installation
 
 using npm :
 ```bash
