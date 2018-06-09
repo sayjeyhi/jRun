@@ -11,7 +11,7 @@ var jRun = {
     /**
      *  jRun version to check updates and force files caching validation
      */
-    version: "1.0.20",
+    version: "1.0.21",
 
 
     /**
@@ -55,6 +55,8 @@ var jRun = {
         waitLoading : true,
         kind : false,
         url : '',
+        urls : [],
+        cdn : false,
         attributes : {},
         multiFileUrl : false,
         afterLoad : function () {},
@@ -97,7 +99,7 @@ var jRun = {
      * @return string
      */
     sanitizeName: function (name) {
-        return name.replace(/\/|\.|-/g, "_");
+        return name.toString().replace(/\/|\.|-/g, "_");
     },
 
 
@@ -182,8 +184,12 @@ var jRun = {
 
     /**
      * Build main plug-ins
+     * @param plugins
      */
-    buildPlugIns: function () {
+    buildPlugIns: function (plugins) {
+
+        this.plugins = plugins || this.plugins;
+
         this.allowInit = false;
         this.init(this.plugins, function () {
             jRun.allowInit = true;
@@ -275,11 +281,11 @@ var jRun = {
 
 
                     if (type === "js") {
-                        fileReference.src = jRun.urlPrefix + "Javascript/" + url + "?jVer=" + jRun.version;
+                        fileReference.src = o.cdn ? url : jRun.urlPrefix + "Javascript/" + url + "?jVer=" + jRun.version;
                     } else {
                         fileReference.type = "text/css";
                         fileReference.rel = "stylesheet";
-                        fileReference.href = jRun.urlPrefix + "Css/" + url + "?jVer=" + jRun.version;
+                        fileReference.href = o.cdn ? url : jRun.urlPrefix + "Css/" + url + "?jVer=" + jRun.version;
                     }
 
 
@@ -332,10 +338,11 @@ var jRun = {
                 options['kind'] = 'Utility';
             }
 
-            if(Array.isArray(options.url)){
-                options.url.forEach(function(subUrl , index){
-                    options.multiFileUrl = (index !== 1);
-                    options.url = subUrl;
+            var urlKeys = Object.keys(options.urls);
+            if(urlKeys.length > 0){
+                urlKeys.forEach(function(key){
+                    options.multiFileUrl = (key != 1);
+                    options.url = options.urls[key];
                     loadFile(options);
                 });
             }else{
