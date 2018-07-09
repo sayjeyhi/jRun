@@ -30,7 +30,6 @@ jRun.init(
         {
             url : ['file1.js' , 'file2.js'],
             attributes : {class : 'myFiles'},
-            multiFileUrl : true,
             afterLoad : function(){
                 // some code after this part load
             }
