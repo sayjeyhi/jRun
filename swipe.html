@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div id="swipeZone" style="background: #0d152a;width:800px;height: 800px">SIwpe</div>
+new version !
+<script>
+    /**
+     * @class Swipe - Make it easily to manage swipe in devices
+     * @link : http://www.javascriptkit.com/javatutors/touchevents2.shtml
+
+     * @example :
+     *   var el = document.getElementById('swipezone');
+     *   swipedetect(el, function(swipedir){
+ *       // swipedir contains either "none", "left", "right", "top", or "down"
+ *       el.innerHTML = 'Swiped <span style="color:yellow">' + swipedir +'</span>';
+ *   });
+     */
+
+    class Swipe{
+
+        /**
+         * Make
+         * @param element
+         * @param callback
+         */
+        constructor(element, callback){
+            this.threshold = 150;               //required min distance traveled to be considered swipe
+            this.restraint = 100;               // maximum distance allowed at the same time in perpendicular direction
+            this.allowedTime = 300;             // maximum time allowed to travel that distance
+            this.handleSwipe = callback || ((swipedir) => {console.log(swipedir);});
+
+            this.buildListeners(element);
+
+            return this;
+        }
+
+
+        /**
+         * Add touch listeners on element that supplied to this.touchSurface
+         */
+        buildListeners(touchSurface){
+
+            let startX,startY,distX,distY,startTime,elapsedTime,swipeDirection;
+
+
+            // listen to touch start
+            touchSurface.addEventListener('touchstart', (e) => {
+                let touchObject = e.changedTouches[0];
+                swipeDirection = 'none';
+                //dist = 0;
+                startX = touchObject.pageX;
+                startY = touchObject.pageY;
+                startTime = new Date().getTime();               // record time when finger first makes contact with surface
+                e.preventDefault();
+            }, false);
+
+
+            // listen touch move
+            touchSurface.addEventListener('touchmove', (e) => {
+                e.preventDefault();     // prevent scrolling when inside DIV
+            }, false);
+
+
+            // listen touch end
+            touchSurface.addEventListener('touchend', (e) => {
+                let touchObject = e.changedTouches[0];
+                distX = touchObject.pageX - startX;               // get horizontal dist traveled by finger while in contact with surface
+                distY = touchObject.pageY - startY;               // get vertical dist traveled by finger while in contact with surface
+                elapsedTime = new Date().getTime() - startTime;             // get time elapsed
+                if (elapsedTime <= this.allowedTime){                            // first condition for swipe met
+                    if (Math.abs(distX) >= this.threshold && Math.abs(distY) <= this.restraint){  // 2nd condition for horizontal swipe met
+                        swipeDirection = (distX < 0)? 'left' : 'right';                       // if dist traveled is negative, it indicates left swipe
+                    }
+                    else if (Math.abs(distY) >= this.threshold && Math.abs(distX) <= this.restraint){ // 2nd condition for vertical swipe met
+                        swipeDirection = (distY < 0)? 'up' : 'down';                          // if dist traveled is negative, it indicates up swipe
+                    }
+                }
+                this.handleSwipe(swipeDirection);
+                e.preventDefault();
+            }, false);
+        }
+    }
+
+
+    let swipeElement = document.getElementById("swipeZone");
+    new Swipe(swipeElement , function (direction) {
+        alert(direction);
+    })
+
+</script>
+
+</body>
+</html>
