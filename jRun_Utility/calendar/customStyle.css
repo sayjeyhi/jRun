@@ -1,0 +1,37 @@
+.calendar{position:relative;display:none;border:2px solid #efefef;font-size:11px;cursor:default;background-color:#fff;font-family:tahoma,verdana,sans-serif;z-index:10060;box-shadow:0 5px 10px rgba(0,0,0,0.47);padding:5px 2px}
+.calendar table{font-size:12px;cursor:default;font-family:byekan,tahoma,verdana,sans-serif}
+.calendar .button{text-align:center;padding:2px}
+.calendar .nav{font-size:15px}
+.calendar thead .title{font-weight:700;padding:1px;color:CaptionText;text-align:center}
+.calendar thead .headrow{font-weight:700}
+.calendar thead .daynames{white-space:nowrap}
+.calendar thead .name{padding:2px;text-align:center}
+.calendar thead .weekend{color:red}
+.calendar thead .hilite{padding:2px;background:#eee none repeat scroll 0 0}
+.calendar thead .active{padding:2px 0 0 2px}
+.calendar tbody .day{width:2em;text-align:center;padding:2px 4px 2px 2px}
+.calendar tbody .day.othermonth{font-size:80%;color:#aaa}
+.calendar tbody .day.othermonth.oweekend{color:#faa}
+.calendar table .wn{padding:2px 3px 2px 2px}
+.calendar tbody td.hilite{background:#eee none repeat scroll 0 0}
+.calendar tbody td.active{padding:2px 2px 0}
+.calendar tbody td.selected{font-weight:700;padding:2px 2px 0;background:#eee;color:ButtonText}
+.calendar tbody td.weekend{color:red}
+.calendar tbody td.today{font-weight:700;color:#17c4bb}
+.calendar tbody td.disabled{color:GrayText}
+.calendar tbody .emptycell{visibility:hidden}
+.calendar tbody .emptyrow{display:none}
+.calendar tfoot .ttip{padding:1px;color:ButtonText;text-align:center}
+.calendar tfoot .hilite{padding:1px;background:#eee none repeat scroll 0 0}
+.calendar tfoot .active{padding:2px 0 0 2px}
+.calendar .combo{position:absolute;display:none;width:4em;top:0;left:0;cursor:default;background:#eee;color:#000;font-size:90%;padding:1px;z-index:100}
+.calendar .combo .label,.calendar .combo .label-IEfix{text-align:center;padding:1px}
+.calendar .combo .label-IEfix{width:4em}
+.calendar .combo .active{padding:0;border:1px solid #000}
+.calendar .combo .hilite{color:HighlightText;background:#eee none repeat scroll 0 0}
+.calendar td.time{padding:1px 0;text-align:center}
+.calendar td.time .hour,.calendar td.time .minute,.calendar td.time .ampm{padding:0 3px 0 4px;font-weight:700}
+.calendar td.time .ampm{text-align:center}
+.calendar td.time .colon{padding:0 2px 0 3px;font-weight:700}
+.calendar td.time span.hilite{color:HighlightText;background:#eee none repeat scroll 0 0}
+.calendar td.time span.active{color:#0f0}
