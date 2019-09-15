@@ -67,7 +67,8 @@
         kind : "PlugIn"
     }];
     jRun.buildPlugIns();
-
+    
+    jRun.disableCache = true;
     jRun.init([
         "jRLoader",
         "skrollr/skrollr.min",
