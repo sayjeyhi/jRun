@@ -110,10 +110,10 @@ var jRLoader = {
     '        <hr class="separator"/>' +
     '        <ul class="left">' +
     '            <li>PHP <span class="colored">[laravel , zend framework2 , twig , blade , orm ... ]</span></li>' +
-    '            <li>Javascript <span class="colored">[pure , jquery , angular.js , react.js , pug ...]</span></li>' +
-    '            <li>Web <span class="colored">[html5 , css3 , velocity , animate , svg ...]</span></li>' +
-    '            <li>Database <span class="colored">[Mysql , sqlserver , sqlite , noSql ...]</span></li>' +
-    '            <li>Graphic <span class="colored">[AdobePhotoShop , CorelDraw , paint :)) ...]</span></li>' +
+    '            <li>Javascript <span class="colored">[pure , React , Redux , Redux-Saga , SSR ...]</span></li>' +
+    '            <li>Web <span class="colored">[html5, css3, velocity, animate, svg, flex and grid ...]</span></li>' +
+    '            <li>Database <span class="colored">[Mysql, sqlserver, mongoDB ...]</span></li>' +
+    '            <li>Graphic <span class="colored">[AdobePhotoShop, CorelDraw, inkscape, paint :)) ...]</span></li>' +
     '        </ul>' +
     '    </section>' +
     '' +
@@ -139,7 +139,7 @@ var jRLoader = {
     '    >' +
     '        <div class="copyright">' +
     '            <i class="linearicon linearicon-laptop-phone isResponsive"></i>' +
-    '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد' +
+    '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد @1397' +
     '            <div class="smalltext Roboto">dmFsYXIgbW9yZ2h1bGlzIEBqYWZhclJlemFlaQ==</div>'+
     '        </div>' +
     '    </section>' +
