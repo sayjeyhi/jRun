@@ -109,9 +109,9 @@ var jRLoader = {
     '        <div class="smalltext">چیزهایی که مثلا بلدم ...</div>' +
     '        <hr class="separator"/>' +
     '        <ul class="left">' +
-    '            <li>PHP <span class="colored">[laravel , zend framework2 , twig , blade , orm ... ]</span></li>' +
-    '            <li>Javascript <span class="colored">[pure , React , Redux , Redux-Saga , SSR ...]</span></li>' +
-    '            <li>Web <span class="colored">[html5, css3, velocity, animate, svg, flex and grid ...]</span></li>' +
+    '            <li>PHP <span class="colored">[laravel, zend framework2, twig, blade ... ]</span></li>' +
+    '            <li>Javascript <span class="colored">[Vanilla, React, Redux, Redux-Saga, SSR ...]</span></li>' +
+    '            <li>Web <span class="colored">[html5, css3, animate, svg, flex and grid ...]</span></li>' +
     '            <li>Database <span class="colored">[Mysql, sqlserver, mongoDB ...]</span></li>' +
     '            <li>Graphic <span class="colored">[AdobePhotoShop, CorelDraw, inkscape, paint :)) ...]</span></li>' +
     '        </ul>' +
@@ -140,7 +140,7 @@ var jRLoader = {
     '        <div class="copyright">' +
     '            <i class="linearicon linearicon-laptop-phone isResponsive"></i>' +
     '            <i class="linearicon icon-copyright"></i> کپی راست برای خودم محفوظ می باشد @1397' +
-    '            <div class="smalltext Roboto">dmFsYXIgbW9yZ2h1bGlzIEBqYWZhclJlemFlaQ==</div>'+
+    '            <div class="smalltext Roboto">VmFsYXIgbW9yZ2h1bGlzIEBzYXlqZXloaQ==</div>'+
     '        </div>' +
     '    </section>' +
     '' +
